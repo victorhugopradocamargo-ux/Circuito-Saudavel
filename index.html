@@ -1,0 +1,2282 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Circuito Saudável</title>
+<meta name="description" content="Circuito de 6 jogos sobre esporte e alimentação saudável para a sala de aula.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Chivo:ital,wght@0,400;0,700;0,900;1,400&family=Chivo+Mono:wght@400;700&display=swap">
+<style>
+/* ---------------------------------------------------------------
+   CIRCUITO SAUDÁVEL — tokens
+   --------------------------------------------------------------- */
+:root{
+  --ground:#F1F4F1;
+  --surface:#FFFFFF;
+  --surface-2:#E7EEE9;
+  --line:#D2DED7;
+  --line-forte:#B7C8BE;
+  --ink:#0E1F17;
+  --ink-2:#48594F;
+  --ink-3:#7A8B81;
+  --verde:#0B7A4B;
+  --verde-claro:#12A167;
+  --verde-tenue:#DCEFE4;
+  --laranja:#E85D1F;
+  --laranja-tenue:#FCE6DA;
+  --amarelo:#F5B921;
+  --amarelo-tenue:#FBEFCF;
+  --erro:#C7311F;
+  --erro-tenue:#FADFDA;
+  --sombra:0 1px 2px rgba(14,31,23,.05), 0 10px 30px -14px rgba(14,31,23,.28);
+  --sombra-alta:0 2px 4px rgba(14,31,23,.06), 0 18px 40px -16px rgba(14,31,23,.35);
+  --raio:14px;
+  --display:'Big Shoulders Display','Arial Narrow',Impact,system-ui,sans-serif;
+  --corpo:'Chivo','Segoe UI',system-ui,-apple-system,sans-serif;
+  --mono:'Chivo Mono','SFMono-Regular',Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0B1310;
+    --surface:#13201A;
+    --surface-2:#1B2C24;
+    --line:#26392F;
+    --line-forte:#3A5245;
+    --ink:#E9F1EB;
+    --ink-2:#A2B5A9;
+    --ink-3:#71877B;
+    --verde:#2FBF7E;
+    --verde-claro:#54D89C;
+    --verde-tenue:#153427;
+    --laranja:#FF8348;
+    --laranja-tenue:#3A2116;
+    --amarelo:#FFCC4D;
+    --amarelo-tenue:#3A2F12;
+    --erro:#FF6E59;
+    --erro-tenue:#3B1A15;
+    --sombra:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.8);
+    --sombra-alta:0 2px 4px rgba(0,0,0,.45), 0 18px 40px -16px rgba(0,0,0,.9);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0B1310;
+  --surface:#13201A;
+  --surface-2:#1B2C24;
+  --line:#26392F;
+  --line-forte:#3A5245;
+  --ink:#E9F1EB;
+  --ink-2:#A2B5A9;
+  --ink-3:#71877B;
+  --verde:#2FBF7E;
+  --verde-claro:#54D89C;
+  --verde-tenue:#153427;
+  --laranja:#FF8348;
+  --laranja-tenue:#3A2116;
+  --amarelo:#FFCC4D;
+  --amarelo-tenue:#3A2F12;
+  --erro:#FF6E59;
+  --erro-tenue:#3B1A15;
+  --sombra:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.8);
+  --sombra-alta:0 2px 4px rgba(0,0,0,.45), 0 18px 40px -16px rgba(0,0,0,.9);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--corpo);
+  font-size:16px;
+  line-height:1.55;
+  overflow-x:hidden;
+}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:.95;letter-spacing:.01em}
+button{font-family:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--laranja);outline-offset:2px;border-radius:4px}
+
+/* --------------------------- placar / topo --------------------------- */
+.topo{
+  position:sticky;top:0;z-index:40;
+  background:var(--surface);
+  border-bottom:2px solid var(--line);
+  box-shadow:0 4px 20px -18px rgba(0,0,0,.7);
+}
+.topo-interno{
+  max-width:1120px;margin:0 auto;padding:10px 18px;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.marca{display:flex;align-items:center;gap:10px;margin-right:auto;min-width:0}
+.marca svg{width:32px;height:32px;color:var(--verde);flex:none}
+.marca-txt{min-width:0}
+.marca-nome{
+  font-family:var(--display);font-size:27px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.02em;line-height:.9;
+  white-space:nowrap;
+}
+.marca-sub{
+  font-size:10px;text-transform:uppercase;letter-spacing:.16em;
+  color:var(--ink-3);font-weight:700;white-space:nowrap;
+}
+.placar{
+  display:flex;gap:2px;background:var(--line);border:2px solid var(--line);
+  border-radius:10px;overflow:hidden;
+}
+.placar-item{background:var(--surface-2);padding:4px 12px;text-align:center;min-width:66px}
+.placar-rot{
+  display:block;font-size:9px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--ink-3);
+}
+.placar-val{
+  display:block;font-family:var(--mono);font-weight:700;font-size:19px;
+  font-variant-numeric:tabular-nums;line-height:1.15;
+}
+.topo-acoes{display:flex;gap:6px}
+.icone-btn{
+  width:38px;height:38px;display:grid;place-items:center;
+  background:var(--surface-2);border:2px solid var(--line);border-radius:10px;
+  cursor:pointer;font-size:16px;transition:border-color .15s, transform .15s;
+}
+.icone-btn:hover{border-color:var(--verde);transform:translateY(-1px)}
+.icone-btn[aria-pressed="true"]{background:var(--verde-tenue);border-color:var(--verde)}
+
+/* --------------------------- estrutura --------------------------- */
+main{max-width:1120px;margin:0 auto;padding:26px 18px 60px}
+.tela{display:none}
+.tela.ativa{display:block;animation:entra .28s ease both}
+@keyframes entra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* --------------------------- hero / menu --------------------------- */
+.hero{position:relative;padding:30px 24px 26px;margin-bottom:26px;overflow:hidden;
+  border:2px solid var(--line);border-radius:20px;background:var(--surface)}
+.hero-quadra{position:absolute;inset:0;width:100%;height:100%;color:var(--line-forte);opacity:.5;pointer-events:none}
+.hero-conteudo{position:relative;max-width:44ch}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.16em;
+  color:var(--verde);background:var(--verde-tenue);
+  padding:5px 11px;border-radius:99px;margin-bottom:14px;
+}
+.hero h1{font-size:clamp(44px,8.5vw,78px);font-weight:800;text-transform:uppercase}
+.hero h1 em{font-style:normal;color:var(--verde);display:block}
+.hero p{margin:14px 0 0;color:var(--ink-2);font-size:16.5px;max-width:52ch}
+
+.secao-rotulo{
+  display:flex;align-items:center;gap:14px;margin:0 0 16px;
+  font-family:var(--display);font-size:22px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.04em;
+}
+.secao-rotulo::after{content:"";flex:1;height:3px;background:var(--line);border-radius:2px}
+
+.estacoes{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(268px,1fr))}
+.estacao{
+  position:relative;text-align:left;cursor:pointer;
+  background:var(--surface);border:2px solid var(--line);border-radius:var(--raio);
+  padding:18px 18px 16px;display:flex;flex-direction:column;gap:9px;
+  transition:transform .18s, border-color .18s, box-shadow .18s;
+  animation:sobe .4s ease both;
+}
+@keyframes sobe{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.estacao:hover{transform:translateY(-4px);border-color:var(--verde);box-shadow:var(--sombra-alta)}
+.estacao-topo{display:flex;align-items:flex-start;gap:12px}
+.estacao-num{
+  font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink-3);
+  letter-spacing:.08em;padding-top:5px;
+}
+.estacao-icone{font-size:30px;line-height:1;margin-left:auto}
+.estacao h3{font-size:27px;font-weight:700;text-transform:uppercase;flex:1}
+.estacao p{margin:0;font-size:14px;color:var(--ink-2);line-height:1.45}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.tag{
+  font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;
+  padding:3px 9px;border-radius:99px;background:var(--surface-2);color:var(--ink-2);
+  border:1px solid var(--line);
+}
+.tag.verde{background:var(--verde-tenue);color:var(--verde);border-color:transparent}
+.selo-ok{
+  position:absolute;top:-9px;right:-9px;width:30px;height:30px;border-radius:50%;
+  background:var(--verde);color:#fff;display:none;place-items:center;
+  font-size:15px;font-weight:700;box-shadow:var(--sombra);
+}
+.estacao.concluida .selo-ok{display:grid}
+.estacao.concluida{border-color:var(--verde)}
+
+.nota-professor{
+  margin-top:26px;padding:16px 18px;border-radius:var(--raio);
+  background:var(--amarelo-tenue);border:2px solid var(--amarelo);
+  font-size:14px;color:var(--ink-2);
+}
+.nota-professor strong{color:var(--ink);font-family:var(--display);font-size:17px;
+  text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:4px}
+
+/* --------------------------- cabeçalho de jogo --------------------------- */
+.jogo-topo{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  padding-bottom:14px;margin-bottom:20px;border-bottom:3px solid var(--line);
+}
+.jogo-topo h2{font-size:34px;font-weight:800;text-transform:uppercase;margin-right:auto}
+.jogo-topo .sub{
+  width:100%;order:9;margin:0;font-size:14px;color:var(--ink-2);
+}
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:9px 16px;border-radius:10px;cursor:pointer;
+  font-weight:700;font-size:13.5px;letter-spacing:.03em;
+  background:var(--surface);border:2px solid var(--line);
+  transition:border-color .15s, background .15s, transform .12s;
+}
+.btn:hover{border-color:var(--verde);transform:translateY(-1px)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn.primario{background:var(--verde);border-color:var(--verde);color:#fff}
+.btn.primario:hover{background:var(--verde-claro);border-color:var(--verde-claro)}
+.btn.fantasma{background:transparent}
+
+.arena{display:grid;gap:22px;grid-template-columns:minmax(0,1fr) 300px;align-items:start}
+@media (max-width:880px){.arena{grid-template-columns:minmax(0,1fr)}}
+.painel{
+  background:var(--surface);border:2px solid var(--line);
+  border-radius:var(--raio);padding:16px;
+}
+.painel h3{
+  font-size:19px;text-transform:uppercase;letter-spacing:.05em;
+  margin-bottom:10px;color:var(--ink-2);
+}
+.barra-controles{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+
+/* --------------------------- caça-palavras --------------------------- */
+.niveis{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.nivel{
+  flex:1;min-width:150px;text-align:left;cursor:pointer;padding:12px 14px;
+  background:var(--surface);border:2px solid var(--line);border-radius:12px;
+  transition:border-color .15s, background .15s;
+}
+.nivel:hover{border-color:var(--verde)}
+.nivel[aria-pressed="true"]{background:var(--verde);border-color:var(--verde);color:#fff}
+.nivel[aria-pressed="true"] .nivel-info{color:rgba(255,255,255,.82)}
+.nivel-nome{font-family:var(--display);font-size:23px;font-weight:700;text-transform:uppercase;line-height:1}
+.nivel-info{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+
+.tabuleiro-wrap{display:flex;justify-content:center}
+.cp-grade{
+  --n:10;--cel:32px;
+  display:grid;
+  /* linhas E colunas fixas em frações iguais: sem isso a linha cresce
+     conforme recebe letra e a grade inteira se rearranja */
+  grid-template-columns:repeat(var(--n),minmax(0,1fr));
+  grid-template-rows:repeat(var(--n),minmax(0,1fr));
+  width:100%;max-width:min(94vw,580px);aspect-ratio:1;
+  gap:2px;padding:10px;background:var(--surface);
+  border:3px solid var(--line-forte);border-radius:var(--raio);
+  touch-action:none;user-select:none;-webkit-user-select:none;
+}
+.cp-celula{
+  display:grid;place-items:center;border-radius:5px;
+  background:var(--surface-2);overflow:hidden;
+  font-family:var(--display);font-weight:700;line-height:1;
+  font-size:calc(var(--cel) * .62);
+  color:var(--ink);cursor:pointer;
+  transition:background .1s, color .1s, transform .1s;
+}
+.cp-celula.marcada{background:var(--amarelo);color:#0E1F17;transform:scale(1.06)}
+.cp-celula.achada{background:var(--verde);color:#fff}
+.cp-celula.revelada{background:var(--laranja);color:#fff}
+
+.lista-palavras{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.lista-palavras li{
+  font-family:var(--display);font-size:19px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;padding:3px 10px;border-radius:8px;
+  background:var(--surface-2);border:1px solid var(--line);transition:.2s;
+}
+.lista-palavras li.ok{
+  background:var(--verde-tenue);color:var(--verde);
+  border-color:transparent;text-decoration:line-through;opacity:.75;
+}
+
+/* --------------------------- palavras cruzadas --------------------------- */
+.cz-grade{
+  --n:15;--cel:30px;
+  display:grid;
+  /* idem: a grade precisa ser uma matriz rígida, senão digitar redimensiona tudo */
+  grid-template-columns:repeat(var(--n),minmax(0,1fr));
+  grid-template-rows:repeat(var(--n),minmax(0,1fr));
+  width:100%;max-width:min(94vw,600px);aspect-ratio:1;
+  gap:1px;padding:8px;background:var(--surface);
+  border:3px solid var(--line-forte);border-radius:var(--raio);
+  user-select:none;-webkit-user-select:none;
+}
+.cz-bloco{background:transparent}
+.cz-celula{
+  position:relative;display:grid;place-items:center;overflow:hidden;
+  background:var(--surface-2);border:1px solid var(--line);
+  font-family:var(--display);font-weight:700;line-height:1;
+  font-size:calc(var(--cel) * .62);cursor:pointer;
+  transition:background .12s;
+}
+.cz-celula .n{
+  position:absolute;top:0;left:2px;
+  font-family:var(--mono);font-weight:700;
+  font-size:calc(var(--cel) * .3);line-height:1.25;color:var(--ink-3);
+}
+/* ordem importa: palavra resolvida < palavra em foco < casa em foco < erro */
+.cz-celula.correta{background:var(--verde-tenue);color:var(--verde)}
+.cz-celula.palavra-ativa{background:var(--amarelo-tenue)}
+.cz-celula.ativa{background:var(--amarelo);color:#0E1F17}
+.cz-celula.errada{background:var(--erro-tenue);color:var(--erro);animation:tremer .3s}
+@keyframes tremer{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+
+.dica-ativa{
+  display:flex;gap:10px;align-items:baseline;
+  padding:11px 14px;margin-bottom:12px;border-radius:10px;
+  background:var(--verde-tenue);border:2px solid var(--verde);min-height:52px;
+}
+.dica-ativa b{font-family:var(--mono);color:var(--verde);flex:none;font-size:14px}
+.dica-ativa span{font-size:14.5px;line-height:1.4}
+
+.dicas-col h3{display:flex;align-items:center;gap:8px}
+.dicas-lista{list-style:none;margin:0 0 16px;padding:0;
+  display:flex;flex-direction:column;gap:1px}
+.dicas-lista li{
+  display:flex;gap:8px;padding:6px 8px;border-radius:7px;cursor:pointer;
+  font-size:13.5px;line-height:1.35;transition:background .12s;
+}
+.dicas-lista li:hover{background:var(--surface-2)}
+.dicas-lista li b{font-family:var(--mono);font-size:12px;color:var(--ink-3);flex:none;padding-top:2px}
+.dicas-lista li.sel{background:var(--verde-tenue)}
+.dicas-lista li.feita{opacity:.45;text-decoration:line-through}
+
+/* --------------------------- teclado na tela --------------------------- */
+.teclado{display:flex;flex-direction:column;gap:5px;align-items:center;margin-top:16px}
+.teclado-linha{display:flex;gap:4px;justify-content:center;width:100%}
+.tecla{
+  flex:1;max-width:46px;min-width:0;height:42px;
+  display:grid;place-items:center;cursor:pointer;
+  background:var(--surface);border:2px solid var(--line);border-radius:8px;
+  font-family:var(--display);font-size:19px;font-weight:700;
+  transition:background .12s, border-color .12s, transform .1s;
+}
+.tecla:hover:not(:disabled){border-color:var(--verde);transform:translateY(-1px)}
+.tecla:disabled{opacity:.3;cursor:not-allowed}
+.tecla.larga{max-width:96px;font-family:var(--corpo);font-size:12px;letter-spacing:.06em}
+.tecla.certa{background:var(--verde);border-color:var(--verde);color:#fff;opacity:1}
+.tecla.errada{background:var(--erro-tenue);border-color:var(--erro);color:var(--erro);opacity:1}
+
+/* --------------------------- quiz --------------------------- */
+.quiz-caixa{max-width:660px;margin:0 auto}
+.progresso{height:8px;background:var(--surface-2);border-radius:99px;overflow:hidden;margin-bottom:20px;
+  border:1px solid var(--line)}
+.progresso i{display:block;height:100%;background:var(--verde);border-radius:99px;transition:width .35s ease}
+.pergunta{
+  font-family:var(--display);font-size:clamp(27px,4.6vw,38px);font-weight:700;
+  line-height:1.02;margin-bottom:20px;
+}
+.pergunta-num{
+  font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:8px;
+}
+.alternativas{display:flex;flex-direction:column;gap:9px}
+.alt{
+  display:flex;align-items:center;gap:12px;text-align:left;cursor:pointer;
+  padding:14px 16px;border-radius:12px;font-size:16px;line-height:1.35;
+  background:var(--surface);border:2px solid var(--line);
+  transition:border-color .15s, background .15s, transform .12s;
+}
+.alt:hover:not(:disabled){border-color:var(--verde);transform:translateX(3px)}
+.alt .letra{
+  flex:none;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;
+  background:var(--surface-2);font-family:var(--mono);font-weight:700;font-size:14px;
+}
+.alt.certa{background:var(--verde-tenue);border-color:var(--verde)}
+.alt.certa .letra{background:var(--verde);color:#fff}
+.alt.errada{background:var(--erro-tenue);border-color:var(--erro)}
+.alt.errada .letra{background:var(--erro);color:#fff}
+.alt:disabled{cursor:default}
+.explicacao{
+  margin-top:16px;padding:14px 16px;border-radius:12px;font-size:14.5px;
+  background:var(--surface-2);border-left:5px solid var(--verde);display:none;
+}
+.explicacao.visivel{display:block;animation:entra .25s ease both}
+.explicacao b{display:block;font-family:var(--display);font-size:18px;text-transform:uppercase;
+  letter-spacing:.04em;margin-bottom:3px}
+
+/* --------------------------- memória --------------------------- */
+.mem-grade{
+  display:grid;gap:10px;grid-template-columns:repeat(4,1fr);
+  max-width:520px;margin:0 auto;
+}
+@media (max-width:420px){.mem-grade{gap:7px}}
+.carta{
+  aspect-ratio:3/4;perspective:900px;background:none;border:0;padding:0;cursor:pointer;
+}
+.carta-int{
+  display:block;                 /* é um <span>: sem isso, width/height:100% não valem */
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;transition:transform .45s cubic-bezier(.4,0,.2,1);
+}
+.carta.virada .carta-int,.carta.par .carta-int{transform:rotateY(180deg)}
+.carta-face{
+  position:absolute;inset:0;display:grid;place-items:center;text-align:center;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border-radius:12px;border:2px solid var(--line);padding:6px;
+}
+.carta-frente{background:var(--verde);color:#fff;border-color:var(--verde)}
+.carta-frente svg{width:42%;opacity:.85}
+.carta-verso{
+  background:var(--surface);transform:rotateY(180deg);
+  font-family:var(--display);font-weight:700;text-transform:uppercase;
+  font-size:clamp(13px,2.6vw,17px);line-height:1;letter-spacing:.02em;
+}
+.carta-verso.emoji{font-size:clamp(30px,8vw,46px);font-family:var(--corpo)}
+.carta.par .carta-verso{background:var(--verde-tenue);border-color:var(--verde);color:var(--verde)}
+.carta.par{animation:pulsa .4s ease}
+@keyframes pulsa{50%{transform:scale(1.07)}}
+
+/* --------------------------- forca --------------------------- */
+.forca-caixa{max-width:620px;margin:0 auto;text-align:center}
+.energia{display:flex;gap:6px;justify-content:center;margin-bottom:6px}
+.energia i{
+  width:44px;height:13px;border-radius:4px;background:var(--verde);
+  transition:background .3s, transform .3s;
+}
+.energia i.gasta{background:var(--surface-2);border:1px solid var(--line);transform:scaleY(.55)}
+.energia-rot{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;
+  color:var(--ink-3);margin-bottom:16px}
+.atleta{font-size:60px;line-height:1;margin-bottom:8px;transition:transform .3s}
+.forca-dica{
+  display:inline-block;padding:9px 16px;border-radius:99px;margin-bottom:20px;
+  background:var(--amarelo-tenue);border:2px solid var(--amarelo);
+  font-size:14.5px;max-width:46ch;
+}
+.forca-dica b{font-family:var(--display);text-transform:uppercase;letter-spacing:.06em}
+.palavra-secreta{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-bottom:22px}
+.letra-slot{
+  width:40px;height:52px;display:grid;place-items:center;
+  background:var(--surface);border-radius:7px 7px 0 0;
+  border-bottom:4px solid var(--line-forte);
+  font-family:var(--display);font-size:34px;font-weight:800;line-height:1;
+}
+.letra-slot.aparece{animation:sobe .25s ease both}
+.letra-slot.perdida{color:var(--erro);border-color:var(--erro)}
+
+/* --------------------------- dia a dia / de vez em quando --------------------------- */
+.prato-caixa{max-width:600px;margin:0 auto;text-align:center}
+.cronometro{
+  font-family:var(--mono);font-size:46px;font-weight:700;line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.cronometro.urgente{color:var(--erro);animation:pulsa .6s infinite}
+.cronometro-rot{font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--ink-3);margin-bottom:20px}
+.item-carta{
+  background:var(--surface);border:3px solid var(--line-forte);border-radius:20px;
+  padding:26px 20px;margin-bottom:18px;min-height:190px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+}
+.item-carta.acerto{border-color:var(--verde);background:var(--verde-tenue)}
+.item-carta.erro{border-color:var(--erro);background:var(--erro-tenue)}
+.item-emoji{font-size:66px;line-height:1}
+.item-nome{
+  font-family:var(--display);font-size:33px;font-weight:700;
+  text-transform:uppercase;line-height:1.02;text-wrap:balance;max-width:16ch;
+}
+.item-fala{font-size:14px;color:var(--ink-2);max-width:42ch;min-height:2.6em}
+.escolhas{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.escolha{
+  padding:18px 12px;border-radius:14px;cursor:pointer;
+  border:3px solid var(--line);background:var(--surface);
+  font-family:var(--display);font-size:25px;font-weight:700;text-transform:uppercase;
+  line-height:1;transition:transform .12s, border-color .15s, background .15s;
+}
+.escolha small{display:block;font-family:var(--corpo);font-size:11.5px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-top:5px}
+.escolha:hover:not(:disabled){transform:translateY(-3px)}
+.escolha.dia:hover:not(:disabled){border-color:var(--verde);background:var(--verde-tenue)}
+.escolha.vez:hover:not(:disabled){border-color:var(--amarelo);background:var(--amarelo-tenue)}
+
+/* --------------------------- fim de jogo --------------------------- */
+.fim{
+  text-align:center;padding:34px 20px;border-radius:20px;
+  background:var(--surface);border:3px solid var(--verde);
+  animation:entra .35s ease both;
+}
+.fim-emoji{font-size:62px;line-height:1;margin-bottom:6px}
+.fim h3{font-size:clamp(34px,6vw,50px);font-weight:800;text-transform:uppercase;color:var(--verde)}
+.fim p{margin:10px auto 0;color:var(--ink-2);max-width:44ch}
+.fim-pontos{
+  font-family:var(--mono);font-size:38px;font-weight:700;margin:14px 0 4px;
+  font-variant-numeric:tabular-nums;
+}
+.fim-acoes{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+#confete{position:fixed;inset:0;pointer-events:none;z-index:90;display:none}
+
+.rodape{
+  max-width:1120px;margin:0 auto;padding:22px 18px 40px;
+  border-top:2px solid var(--line);
+  display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+  font-size:12.5px;color:var(--ink-3);
+}
+.rodape .btn{margin-left:auto;font-size:12px;padding:6px 12px}
+
+.aviso{
+  position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);
+  background:var(--ink);color:var(--ground);padding:11px 20px;border-radius:99px;
+  font-size:14px;font-weight:700;box-shadow:var(--sombra-alta);
+  opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:100;
+}
+.aviso.visivel{opacity:1;transform:translate(-50%,0)}
+.oculto{display:none !important}
+
+@media (max-width:620px){
+  .topo-interno{padding:8px 12px;gap:8px}
+  .marca-nome{font-size:22px}
+  .marca-sub{display:none}
+  .placar-item{padding:3px 9px;min-width:56px}
+  .placar-val{font-size:16px}
+  main{padding:18px 12px 40px}
+  .hero{padding:24px 18px}
+  .jogo-topo h2{font-size:27px}
+  .escolhas{grid-template-columns:1fr}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;scroll-behavior:auto !important}
+}
+
+/* --------------------------- impressão --------------------------- */
+@media print{
+  .topo,.rodape,.barra-controles,.niveis,.jogo-topo .btn,.teclado,
+  .nota-professor,#confete,.aviso{display:none !important}
+  body{background:#fff;color:#000}
+  main{max-width:none;padding:0}
+  .arena{grid-template-columns:1fr;gap:14px}
+  .painel,.cp-grade,.cz-grade{border-color:#000 !important;box-shadow:none;background:#fff}
+  .cp-celula,.cz-celula{background:#fff !important;color:#000 !important;border:1px solid #999}
+  .cp-celula.achada,.cp-celula.marcada,.cp-celula.revelada{background:#fff !important;color:#000 !important}
+  .lista-palavras li{background:#fff;border:1px solid #000;color:#000}
+  .lista-palavras li.ok{text-decoration:none;opacity:1}
+  .dicas-lista{max-height:none;overflow:visible}
+  .cz-bloco{background:#000 !important}
+}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="topo-interno">
+    <div class="marca">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2.6"/>
+        <line x1="20" y1="2" x2="20" y2="38" stroke="currentColor" stroke-width="2.6"/>
+        <circle cx="20" cy="20" r="6.4" fill="none" stroke="currentColor" stroke-width="2.6"/>
+      </svg>
+      <div class="marca-txt">
+        <div class="marca-nome">Circuito Saudável</div>
+        <div class="marca-sub">Esporte &amp; Alimentação</div>
+      </div>
+    </div>
+
+    <div class="placar" role="status" aria-live="polite">
+      <div class="placar-item">
+        <span class="placar-rot">Pontos</span>
+        <span class="placar-val" id="placar-pontos">0</span>
+      </div>
+      <div class="placar-item">
+        <span class="placar-rot">Estações</span>
+        <span class="placar-val" id="placar-estacoes">0/6</span>
+      </div>
+    </div>
+
+    <div class="topo-acoes">
+      <button class="icone-btn" id="btn-som" aria-pressed="false" title="Ligar/desligar som" aria-label="Ligar ou desligar o som">🔇</button>
+      <button class="icone-btn" id="btn-tema" title="Alternar tema claro/escuro" aria-label="Alternar tema claro ou escuro">🌙</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ==================== MENU ==================== -->
+<section class="tela ativa" id="tela-menu">
+  <div class="hero">
+    <svg class="hero-quadra" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <rect x="6" y="6" width="388" height="188" fill="none" stroke="currentColor" stroke-width="2"/>
+      <line x1="200" y1="6" x2="200" y2="194" stroke="currentColor" stroke-width="2"/>
+      <circle cx="200" cy="100" r="42" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M6 55 h58 v90 H6" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M394 55 h-58 v90 h58" fill="none" stroke="currentColor" stroke-width="2"/>
+    </svg>
+    <div class="hero-conteudo">
+      <span class="eyebrow">6 estações · Sala de aula</span>
+      <h1>Treine o corpo<em>e a cabeça</em></h1>
+      <p>Um circuito de seis jogos sobre esporte e alimentação saudável. Percorra as estações na ordem
+         ou escolha uma só — cada uma soma pontos ao placar da turma.</p>
+    </div>
+  </div>
+
+  <h2 class="secao-rotulo">O circuito</h2>
+  <div class="estacoes" id="lista-estacoes"></div>
+
+  <div class="nota-professor">
+    <strong>Para quem está conduzindo a aula</strong>
+    Dá para rodar como circuito cronometrado (5 minutos por estação, turma dividida em grupos) ou liberar
+    tudo de uma vez. O caça-palavras e as palavras cruzadas têm botão de imprimir, caso a turma vá jogar no papel.
+    O placar fica salvo neste navegador — use “Zerar placar” no rodapé para a próxima turma.
+  </div>
+</section>
+
+<!-- ==================== CAÇA-PALAVRAS ==================== -->
+<section class="tela" id="tela-caca">
+  <div class="jogo-topo">
+    <h2>Caça-Palavras</h2>
+    <button class="btn fantasma" data-voltar>← Circuito</button>
+    <p class="sub">Arraste do começo ao fim da palavra — em qualquer direção permitida pelo nível.</p>
+  </div>
+
+  <div class="niveis" role="group" aria-label="Escolha o nível">
+    <button class="nivel" data-nivel="facil" aria-pressed="true">
+      <span class="nivel-nome">Fácil</span>
+      <span class="nivel-info">9×9 · 6 palavras · → ↓</span>
+    </button>
+    <button class="nivel" data-nivel="medio" aria-pressed="false">
+      <span class="nivel-nome">Médio</span>
+      <span class="nivel-info">12×12 · 9 palavras · + diagonais</span>
+    </button>
+    <button class="nivel" data-nivel="dificil" aria-pressed="false">
+      <span class="nivel-nome">Difícil</span>
+      <span class="nivel-info">15×15 · 12 palavras · 8 direções</span>
+    </button>
+  </div>
+
+  <div class="barra-controles">
+    <button class="btn primario" id="cp-novo">↻ Novo sorteio</button>
+    <button class="btn" id="cp-dica">💡 Revelar uma palavra</button>
+    <button class="btn" id="cp-imprimir">🖨️ Imprimir</button>
+  </div>
+
+  <div class="arena">
+    <div class="tabuleiro-wrap"><div class="cp-grade" id="cp-grade"></div></div>
+    <aside class="painel">
+      <h3>Encontre <span id="cp-contador"></span></h3>
+      <ul class="lista-palavras" id="cp-palavras"></ul>
+      <div id="cp-fim"></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ==================== PALAVRAS CRUZADAS ==================== -->
+<section class="tela" id="tela-cruzadas">
+  <div class="jogo-topo">
+    <h2>Palavras Cruzadas</h2>
+    <button class="btn fantasma" data-voltar>← Circuito</button>
+    <p class="sub">Clique numa casa e digite. Clicar de novo na mesma casa troca entre horizontal e vertical.</p>
+  </div>
+
+  <div class="barra-controles">
+    <button class="btn" id="cz-verificar">✓ Verificar</button>
+    <button class="btn" id="cz-revelar-letra">💡 Revelar letra</button>
+    <button class="btn" id="cz-revelar-palavra">🔑 Revelar palavra</button>
+    <button class="btn" id="cz-limpar">↻ Limpar</button>
+    <button class="btn" id="cz-imprimir">🖨️ Imprimir</button>
+  </div>
+
+  <div class="dica-ativa" id="cz-dica-ativa">
+    <b id="cz-dica-num"></b><span id="cz-dica-texto">Clique numa casa da grade — ou numa dica ao lado — para começar.</span>
+  </div>
+
+  <div class="arena">
+    <div>
+      <div class="tabuleiro-wrap"><div class="cz-grade" id="cz-grade"></div></div>
+      <div class="teclado" id="cz-teclado"></div>
+    </div>
+    <aside class="painel dicas-col">
+      <h3>Horizontais →</h3>
+      <ul class="dicas-lista" id="cz-dicas-h"></ul>
+      <h3>Verticais ↓</h3>
+      <ul class="dicas-lista" id="cz-dicas-v"></ul>
+      <div id="cz-fim"></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ==================== QUIZ ==================== -->
+<section class="tela" id="tela-quiz">
+  <div class="jogo-topo">
+    <h2>Quiz Relâmpago</h2>
+    <button class="btn fantasma" data-voltar>← Circuito</button>
+    <p class="sub">Dez perguntas sorteadas sobre corpo, treino e comida de verdade.</p>
+  </div>
+  <div class="quiz-caixa">
+    <div class="progresso"><i id="quiz-progresso" style="width:0%"></i></div>
+    <div id="quiz-jogo">
+      <span class="pergunta-num" id="quiz-num"></span>
+      <p class="pergunta" id="quiz-pergunta"></p>
+      <div class="alternativas" id="quiz-alternativas"></div>
+      <div class="explicacao" id="quiz-explicacao"></div>
+      <div class="barra-controles" style="margin-top:18px">
+        <button class="btn primario oculto" id="quiz-proxima">Próxima →</button>
+      </div>
+    </div>
+    <div id="quiz-fim"></div>
+  </div>
+</section>
+
+<!-- ==================== MEMÓRIA ==================== -->
+<section class="tela" id="tela-memoria">
+  <div class="jogo-topo">
+    <h2>Jogo da Memória</h2>
+    <button class="btn fantasma" data-voltar>← Circuito</button>
+    <p class="sub">Junte cada imagem ao nome certo. São oito pares sorteados a cada partida.</p>
+  </div>
+  <div class="barra-controles">
+    <button class="btn primario" id="mem-novo">↻ Nova partida</button>
+    <span class="tag" id="mem-status">Pares: 0/8 · Tentativas: 0</span>
+  </div>
+  <div class="mem-grade" id="mem-grade"></div>
+  <div id="mem-fim" style="max-width:520px;margin:20px auto 0"></div>
+</section>
+
+<!-- ==================== FORCA ==================== -->
+<section class="tela" id="tela-forca">
+  <div class="jogo-topo">
+    <h2>Jogo da Forca</h2>
+    <button class="btn fantasma" data-voltar>← Circuito</button>
+    <p class="sub">Descubra a palavra secreta antes que a barra de energia acabe. São seis erros de tolerância.</p>
+  </div>
+  <div class="forca-caixa">
+    <div class="atleta" id="fo-atleta">💪</div>
+    <div class="energia" id="fo-energia"></div>
+    <div class="energia-rot">Energia</div>
+    <div class="forca-dica"><b>Dica:</b> <span id="fo-dica"></span></div>
+    <div class="palavra-secreta" id="fo-palavra"></div>
+    <div class="teclado" id="fo-teclado"></div>
+    <div id="fo-fim" style="margin-top:20px"></div>
+  </div>
+</section>
+
+<!-- ==================== DIA A DIA / DE VEZ EM QUANDO ==================== -->
+<section class="tela" id="tela-prato">
+  <div class="jogo-topo">
+    <h2>Dia a Dia ou De Vez em Quando?</h2>
+    <button class="btn fantasma" data-voltar>← Circuito</button>
+    <p class="sub">Nada aqui é proibido — o que muda é a frequência. Vêm alimentos e também hábitos: classifique o máximo que conseguir em 60 segundos.</p>
+  </div>
+  <div class="prato-caixa">
+    <div class="cronometro" id="pr-tempo">60</div>
+    <div class="cronometro-rot">Segundos restantes</div>
+    <div class="item-carta" id="pr-carta">
+      <div class="item-emoji" id="pr-emoji">🍎</div>
+      <div class="item-nome" id="pr-nome">Pronto?</div>
+      <div class="item-fala" id="pr-fala">Aperte “Começar” para o cronômetro correr.</div>
+    </div>
+    <div class="escolhas">
+      <button class="escolha dia" id="pr-dia" disabled>🟢 Dia a dia<small>Pode ser todo dia</small></button>
+      <button class="escolha vez" id="pr-vez" disabled>🟡 De vez em quando<small>Melhor com moderação</small></button>
+    </div>
+    <div class="barra-controles" style="justify-content:center;margin-top:18px">
+      <button class="btn primario" id="pr-comecar">▶ Começar</button>
+      <span class="tag" id="pr-status">Acertos: 0 · Erros: 0</span>
+    </div>
+    <div id="pr-fim" style="margin-top:20px"></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="rodape">
+  <span>Circuito Saudável · material de apoio para aulas de Educação Física e Ciências.</span>
+  <button class="btn fantasma" id="btn-zerar">Zerar placar</button>
+</footer>
+
+<canvas id="confete"></canvas>
+<div class="aviso" id="aviso" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* =====================================================================
+   CONTEÚDO
+   ===================================================================== */
+
+const ESTACOES = [
+  { id:"caca",     num:"01", icone:"🔎", nome:"Caça-Palavras",   tela:"tela-caca",
+    desc:"Três níveis, do 9×9 só na horizontal ao 15×15 com palavras de trás para frente.",
+    tags:["3 níveis","~5 min"] },
+  { id:"cruzadas", num:"02", icone:"✏️", nome:"Palavras Cruzadas", tela:"tela-cruzadas",
+    desc:"Dezoito palavras cruzando numa grade 15×15, com dicas numeradas.",
+    tags:["18 palavras","~10 min"] },
+  { id:"quiz",     num:"03", icone:"⚡", nome:"Quiz Relâmpago",   tela:"tela-quiz",
+    desc:"Dez perguntas com explicação depois de cada resposta.",
+    tags:["10 perguntas","~4 min"] },
+  { id:"memoria",  num:"04", icone:"🧠", nome:"Jogo da Memória",  tela:"tela-memoria",
+    desc:"Ligue a imagem ao nome do alimento ou do esporte.",
+    tags:["8 pares","~3 min"] },
+  { id:"forca",    num:"05", icone:"🔤", nome:"Jogo da Forca",    tela:"tela-forca",
+    desc:"Palavra secreta do tema, seis erros de tolerância.",
+    tags:["palavra secreta","~3 min"] },
+  { id:"prato",    num:"06", icone:"🍽️", nome:"Dia a Dia ou De Vez em Quando?", tela:"tela-prato",
+    desc:"Corrida contra o relógio classificando alimentos e hábitos pela frequência ideal.",
+    tags:["60 segundos","57 cartas","~2 min"] }
+];
+
+const BANCO_CACA = {
+  facil:   ["AGUA","MACA","UVA","OVO","SUOR","JUDO","TENIS","ARROZ","SAUDE","PEIXE","BOXE","FIBRA","VOLEI","REMO"],
+  medio:   ["FUTEBOL","BANANA","ALFACE","SALADA","CORRIDA","NATACAO","CENOURA","FEIJAO","ENERGIA",
+            "TOMATE","MUSCULO","ATLETA","TREINO","LARANJA","MORANGO","IOGURTE","MEDALHA","CICLISMO"],
+  dificil: ["ALONGAMENTO","SEDENTARISMO","CARBOIDRATO","BASQUETE","PROTEINA","VITAMINA","BROCOLIS",
+            "HIDRATAR","ATLETISMO","GINASTICA","ESPINAFRE","MELANCIA","INTEGRAL","HANDEBOL",
+            "ABACAXI","BETERRABA","EXERCICIO","NUTRIENTE"]
+};
+
+const CONFIG_CACA = {
+  facil:   { n:9,  qtd:6,  pts:2, dirs:[[0,1],[1,0]] },
+  medio:   { n:12, qtd:9,  pts:3, dirs:[[0,1],[1,0],[1,1],[-1,1]] },
+  dificil: { n:15, qtd:12, pts:5, dirs:[[0,1],[1,0],[1,1],[-1,1],[0,-1],[-1,0],[-1,-1],[1,-1]] }
+};
+
+/* Grade gerada e conferida previamente: 15×15, 18 palavras, todas cruzando. */
+const CRUZADAS = {
+  n: 15,
+  grade: [
+    "T.FIBRA........",
+    "E...A..S.......",
+    "N.H.N..U.B.P...",
+    "I.I.A..O.A.R.C.",
+    "SEDENTARISMO.E.",
+    "..R.A.L..Q.T.N.",
+    "..A...O.FUTEBOL",
+    "VITAMINA.E.I.U.",
+    "..A...G..T.N.R.",
+    "LARANJA..E.A.A.",
+    "...G..M........",
+    "IOGURTE........",
+    ".V.A..NATACAO..",
+    ".O....T........",
+    "....BROCOLIS..."
+  ],
+  entradas: [
+    { num:2,  dir:"H", r:0,  c:2,  resp:"FIBRA",        dica:"Presente nos alimentos integrais, ajuda o intestino a funcionar" },
+    { num:9,  dir:"H", r:4,  c:0,  resp:"SEDENTARISMO", dica:"Falta de atividade física; um dos maiores riscos à saúde" },
+    { num:11, dir:"H", r:6,  c:8,  resp:"FUTEBOL",      dica:"Esporte mais popular do Brasil, jogado com os pés" },
+    { num:12, dir:"H", r:7,  c:0,  resp:"VITAMINA",     dica:"Nutriente das frutas e verduras: A, C, D, E..." },
+    { num:13, dir:"H", r:9,  c:0,  resp:"LARANJA",      dica:"Fruta cítrica famosa pela vitamina C" },
+    { num:15, dir:"H", r:11, c:0,  resp:"IOGURTE",      dica:"Derivado do leite, tem bactérias que ajudam o intestino" },
+    { num:17, dir:"H", r:12, c:6,  resp:"NATACAO",      dica:"Esporte praticado dentro da piscina" },
+    { num:18, dir:"H", r:14, c:4,  resp:"BROCOLIS",     dica:"Verdura verde parecida com uma arvorezinha" },
+    { num:1,  dir:"V", r:0,  c:0,  resp:"TENIS",        dica:"Esporte de raquete — e também o calçado do corredor" },
+    { num:3,  dir:"V", r:0,  c:4,  resp:"BANANA",       dica:"Fruta rica em potássio, ajuda a evitar cãibras" },
+    { num:4,  dir:"V", r:1,  c:7,  resp:"SUOR",         dica:"Líquido que o corpo perde durante o exercício" },
+    { num:5,  dir:"V", r:2,  c:2,  resp:"HIDRATAR",     dica:"O que beber água faz com o nosso corpo" },
+    { num:6,  dir:"V", r:2,  c:9,  resp:"BASQUETE",     dica:"Esporte de quadra em que se arremessa a bola numa cesta" },
+    { num:7,  dir:"V", r:2,  c:11, resp:"PROTEINA",     dica:"Nutriente que constrói e recupera os músculos" },
+    { num:8,  dir:"V", r:3,  c:13, resp:"CENOURA",      dica:"Legume laranja rico em vitamina A, bom para a visão" },
+    { num:10, dir:"V", r:4,  c:6,  resp:"ALONGAMENTO",  dica:"Exercício feito antes e depois do treino para evitar lesões" },
+    { num:14, dir:"V", r:9,  c:3,  resp:"AGUA",         dica:"Bebida mais saudável: cerca de 2 litros por dia" },
+    { num:16, dir:"V", r:11, c:1,  resp:"OVO",          dica:"Alimento barato e uma ótima fonte de proteína" }
+  ]
+};
+
+const PERGUNTAS = [
+  { p:"Quanto tempo de atividade física por dia a Organização Mundial da Saúde recomenda para crianças e adolescentes?",
+    alts:["60 minutos","10 minutos","3 horas","Só nos fins de semana"], certa:"60 minutos",
+    exp:"São pelo menos 60 minutos por dia de atividade moderada a intensa — e vale somar recreio, caminhada até a escola e brincadeira." },
+  { p:"Qual nutriente é o principal responsável por construir e recuperar os músculos?",
+    alts:["Proteína","Açúcar","Sódio","Cafeína"], certa:"Proteína",
+    exp:"Carne, ovo, feijão, leite e castanhas são fontes de proteína. Depois do exercício, o corpo usa esse nutriente para reparar as fibras musculares." },
+  { p:"Qual destes é o melhor lanche antes de uma aula de Educação Física?",
+    alts:["Banana","Refrigerante","Bala de goma","Salgadinho de pacote"], certa:"Banana",
+    exp:"A banana dá energia de liberação rápida e ainda repõe potássio, que ajuda a evitar cãibras." },
+  { p:"O alongamento antes e depois do treino serve principalmente para:",
+    alts:["Prevenir lesões e melhorar a flexibilidade","Aumentar a força em um dia","Emagrecer rapidamente","Substituir o aquecimento e o treino"],
+    certa:"Prevenir lesões e melhorar a flexibilidade",
+    exp:"Alongar prepara músculos e articulações para o esforço e ajuda o corpo a voltar ao normal no fim da atividade." },
+  { p:"Qual é a função das fibras na alimentação?",
+    alts:["Ajudam o intestino a funcionar e dão saciedade","Deixam a comida mais doce","Substituem a água","Aumentam a massa muscular"],
+    certa:"Ajudam o intestino a funcionar e dão saciedade",
+    exp:"Estão nos alimentos integrais, nas frutas com casca, nas verduras e no feijão. Além do intestino, ajudam a segurar a fome." },
+  { p:"Qual destes NÃO é um esporte olímpico?",
+    alts:["Queimada","Judô","Vôlei de praia","Skate"], certa:"Queimada",
+    exp:"Queimada (ou caçador) é uma brincadeira tradicional muito boa, mas não faz parte do programa olímpico. Skate estreou em Tóquio 2020." },
+  { p:"Qual vitamina é famosa nas frutas cítricas, como a laranja e a acerola?",
+    alts:["Vitamina C","Vitamina D","Vitamina K","Vitamina B12"], certa:"Vitamina C",
+    exp:"A vitamina C ajuda na defesa do organismo e na absorção do ferro — por isso suco de laranja combina com feijão." },
+  { p:"Durante o exercício, o corpo perde água principalmente por meio do:",
+    alts:["Suor","Choro","Espirro","Bocejo"], certa:"Suor",
+    exp:"Suar é o jeito que o corpo tem de se refrescar. Por isso é preciso beber água antes, durante e depois da atividade." },
+  { p:"O que significa sedentarismo?",
+    alts:["Falta de atividade física","Comer muita fruta","Treinar todos os dias","Dormir cedo"], certa:"Falta de atividade física",
+    exp:"O sedentarismo está entre os maiores fatores de risco para doenças do coração, diabetes e obesidade." },
+  { p:"Quantos jogadores cada time tem em quadra numa partida de vôlei?",
+    alts:["6","5","7","11"], certa:"6",
+    exp:"São 6 em quadra, com rodízio a cada ponto conquistado no saque adversário." },
+  { p:"Que grupo de alimentos deve ocupar a maior parte do prato?",
+    alts:["Verduras, legumes e frutas","Frituras","Doces","Refrigerantes"], certa:"Verduras, legumes e frutas",
+    exp:"O Guia Alimentar para a População Brasileira recomenda basear a alimentação em alimentos in natura ou minimamente processados." },
+  { p:"Tomar café da manhã é importante porque:",
+    alts:["Repõe a energia depois de horas sem comer","Engorda menos que o almoço","Substitui o jantar","Serve só para quem treina"],
+    certa:"Repõe a energia depois de horas sem comer",
+    exp:"Depois de uma noite inteira em jejum, o corpo precisa de combustível para a manhã de aula — inclusive para se concentrar." },
+  { p:"O que são alimentos ultraprocessados?",
+    alts:["Produtos industriais com muito açúcar, sal, gordura e aditivos","Frutas lavadas e cortadas","Arroz e feijão cozidos em casa","Legumes congelados sem tempero"],
+    certa:"Produtos industriais com muito açúcar, sal, gordura e aditivos",
+    exp:"Salgadinho, refrigerante, biscoito recheado e macarrão instantâneo são exemplos. A recomendação é evitá-los, não bani-los da vida." },
+  { p:"Qual hábito ajuda mais o corpo a se recuperar depois do treino?",
+    alts:["Dormir bem","Ficar no celular até tarde","Pular o jantar","Tomar café à noite"], certa:"Dormir bem",
+    exp:"É durante o sono que o corpo repara os músculos e libera os hormônios ligados ao crescimento." },
+  { p:"Qual é a bebida mais indicada para se hidratar no dia a dia?",
+    alts:["Água","Suco de caixinha","Energético","Refrigerante zero"], certa:"Água",
+    exp:"Água não tem açúcar, corante nem caloria. Cerca de 2 litros por dia dão conta na maior parte dos casos." },
+  { p:"Numa prova de atletismo, o que é a maratona?",
+    alts:["Uma corrida de 42,195 km","Um salto em altura","Uma prova de arremesso","Uma corrida de revezamento"],
+    certa:"Uma corrida de 42,195 km",
+    exp:"A distância vem da lenda do soldado grego que correu de Maratona até Atenas para anunciar uma vitória." },
+  { p:"Por que não se deve treinar pesado logo depois de uma refeição grande?",
+    alts:["O corpo está ocupado digerindo e pode dar mal-estar","Faz perder massa muscular","A comida vira gordura na hora","Não existe problema nenhum"],
+    certa:"O corpo está ocupado digerindo e pode dar mal-estar",
+    exp:"O sangue se concentra no sistema digestivo. O ideal é esperar de 1 a 2 horas depois de uma refeição completa." }
+];
+
+const PARES_MEMORIA = [
+  { emoji:"🥦", nome:"Brócolis" }, { emoji:"🍌", nome:"Banana" },
+  { emoji:"🥕", nome:"Cenoura" },  { emoji:"💧", nome:"Água" },
+  { emoji:"⚽", nome:"Futebol" },  { emoji:"🏀", nome:"Basquete" },
+  { emoji:"🏊", nome:"Natação" },  { emoji:"🥗", nome:"Salada" },
+  { emoji:"🍎", nome:"Maçã" },     { emoji:"🚴", nome:"Ciclismo" },
+  { emoji:"🥚", nome:"Ovo" },      { emoji:"🐟", nome:"Peixe" },
+  { emoji:"🏐", nome:"Vôlei" },    { emoji:"🍊", nome:"Laranja" }
+];
+
+const PALAVRAS_FORCA = [
+  { p:"ALONGAMENTO",  d:"Feito antes e depois do treino para evitar lesões" },
+  { p:"CARBOIDRATO",  d:"Nutriente do arroz e do pão que dá energia ao corpo" },
+  { p:"SEDENTARISMO", d:"O contrário de uma vida ativa" },
+  { p:"ATLETISMO",    d:"Esporte que reúne corridas, saltos e arremessos" },
+  { p:"HANDEBOL",     d:"Esporte de quadra jogado com as mãos e um gol" },
+  { p:"CICLISMO",     d:"Esporte praticado sobre duas rodas e pedais" },
+  { p:"GINASTICA",    d:"Esporte de saltos, giros e equilíbrio na trave" },
+  { p:"PROTEINA",     d:"Constrói e recupera os músculos" },
+  { p:"BROCOLIS",     d:"Verdura verde em forma de arvorezinha" },
+  { p:"ESPINAFRE",    d:"Folha verde-escura famosa por ser rica em ferro" },
+  { p:"MELANCIA",     d:"Fruta enorme, vermelha por dentro e cheia de água" },
+  { p:"ABACAXI",      d:"Fruta com coroa, azedinha e cheia de vitamina C" },
+  { p:"HIDRATACAO",   d:"O que a água faz pelo corpo durante o exercício" },
+  { p:"INTEGRAL",     d:"Tipo de arroz e de pão que conserva mais fibras" },
+  { p:"BETERRABA",    d:"Raiz roxa que ajuda no transporte de oxigênio" },
+  { p:"EQUILIBRIO",   d:"Capacidade física treinada na ginástica e no skate" }
+];
+
+/* Alimentos e hábitos. `dia:true` = pode entrar na rotina de todo dia. */
+const ITENS_PRATO = [
+  // --- alimentos do dia a dia ---
+  { e:"🍎", n:"Maçã",              dia:true,  f:"Fruta in natura: fibra, vitamina e água na medida." },
+  { e:"🥦", n:"Brócolis",          dia:true,  f:"Verdura rica em fibras, cálcio e vitamina C." },
+  { e:"🫘", n:"Feijão",            dia:true,  f:"Fonte de ferro e proteína vegetal, a dupla do arroz." },
+  { e:"🍚", n:"Arroz integral",    dia:true,  f:"Energia com mais fibras que a versão branca." },
+  { e:"💧", n:"Água",              dia:true,  f:"A bebida do dia a dia, sem exceção." },
+  { e:"🥚", n:"Ovo",               dia:true,  f:"Proteína barata e completa." },
+  { e:"🐟", n:"Peixe",             dia:true,  f:"Tem ômega 3, que faz bem ao coração." },
+  { e:"🥕", n:"Cenoura",           dia:true,  f:"Vitamina A, boa para a visão e para a pele." },
+  { e:"🍌", n:"Banana",            dia:true,  f:"Potássio que ajuda a evitar cãibras no treino." },
+  { e:"🥗", n:"Salada de folhas",  dia:true,  f:"Volume e fibra com pouquíssima caloria." },
+  { e:"🥛", n:"Leite",             dia:true,  f:"Cálcio para ossos e dentes em crescimento." },
+  { e:"🌾", n:"Aveia",             dia:true,  f:"Fibra que segura a fome até o próximo horário." },
+  { e:"🍊", n:"Laranja",           dia:true,  f:"Vitamina C e água — melhor inteira do que em suco." },
+  { e:"🥔", n:"Batata cozida",     dia:true,  f:"Alimento in natura: o problema é a fritura, não a batata." },
+  { e:"🍅", n:"Tomate",            dia:true,  f:"Tem licopeno, um antioxidante que protege as células." },
+  { e:"🥬", n:"Couve",             dia:true,  f:"Verdura escura, cheia de ferro e de cálcio." },
+  { e:"🍇", n:"Uva",               dia:true,  f:"Fruta com antioxidantes; vale mais inteira que em suco." },
+  { e:"🍉", n:"Melancia",          dia:true,  f:"Quase 90% água: hidrata e refresca." },
+  { e:"🍓", n:"Morango",           dia:true,  f:"Muita vitamina C com pouquíssima caloria." },
+  { e:"🥒", n:"Pepino",            dia:true,  f:"Bastante água e quase nenhuma caloria." },
+  { e:"🌽", n:"Milho",             dia:true,  f:"Grão in natura, fonte de energia e de fibra." },
+  { e:"🍞", n:"Pão integral",      dia:true,  f:"Mais fibra que o pão branco e sacia por mais tempo." },
+  { e:"🍗", n:"Frango grelhado",   dia:true,  f:"Proteína magra, ótima na refeição depois do treino." },
+  { e:"🌰", n:"Castanha",          dia:true,  f:"Um punhado por dia: gordura boa e minerais." },
+  { e:"🍠", n:"Batata-doce",       dia:true,  f:"Energia de liberação lenta, boa antes do treino." },
+  { e:"🥥", n:"Água de coco",      dia:true,  f:"Repõe líquido e sais minerais naturalmente." },
+  { e:"🥭", n:"Manga",             dia:true,  f:"Fruta doce e cheia de vitamina A." },
+
+  // --- alimentos de vez em quando ---
+  { e:"🥤", n:"Refrigerante",      dia:false, f:"Uma lata pode passar de 7 colheres de açúcar." },
+  { e:"🍟", n:"Batata frita",      dia:false, f:"Muita gordura e sal; melhor guardar para ocasiões." },
+  { e:"🍫", n:"Chocolate",         dia:false, f:"Gostoso e permitido — só não todo dia." },
+  { e:"🍬", n:"Bala",              dia:false, f:"Açúcar puro, sem nutriente nenhum junto." },
+  { e:"🌭", n:"Cachorro-quente",   dia:false, f:"Embutido: muito sódio e conservantes." },
+  { e:"🍔", n:"Hambúrguer pronto", dia:false, f:"Ultraprocessado rico em gordura e sal." },
+  { e:"🍪", n:"Biscoito recheado", dia:false, f:"Açúcar, gordura e corante em cada unidade." },
+  { e:"🍿", n:"Salgadinho de pacote", dia:false, f:"Sódio altíssimo e quase nenhuma fibra." },
+  { e:"🧃", n:"Suco de caixinha",  dia:false, f:"Costuma ter mais açúcar do que fruta de verdade." },
+  { e:"🍕", n:"Pizza congelada",   dia:false, f:"Ultraprocessada: sódio e gordura em dose alta." },
+  { e:"🧁", n:"Cupcake",           dia:false, f:"Doce de festa — combina mais com o de vez em quando." },
+  { e:"🥓", n:"Salsicha",          dia:false, f:"Embutido com muito sódio e conservantes." },
+  { e:"🍦", n:"Sorvete",           dia:false, f:"Sobremesa para ocasiões, não para toda tarde." },
+  { e:"🍩", n:"Rosquinha doce",    dia:false, f:"Frita e ainda coberta de açúcar." },
+  { e:"🍜", n:"Macarrão instantâneo", dia:false, f:"Um pacote pode ter o sódio de um dia inteiro." },
+  { e:"🍰", n:"Bolo confeitado",   dia:false, f:"Massa doce com cobertura: coisa de festa." },
+  { e:"🧆", n:"Coxinha",           dia:false, f:"Massa empanada e frita no óleo." },
+  { e:"🍭", n:"Pirulito",          dia:false, f:"Só açúcar, e ainda fica grudado no dente." },
+  { e:"🍤", n:"Nugget de frango",  dia:false, f:"Empanado, frito e com pouca carne de verdade." },
+  { e:"⚡", n:"Energético",        dia:false, f:"Cafeína e açúcar demais; não é indicado na infância nem na adolescência." },
+  { e:"🍹", n:"Suco em pó",        dia:false, f:"Corante e açúcar; de fruta quase não tem nada." },
+
+  // --- hábitos do dia a dia ---
+  { e:"🚶", n:"Ir a pé para a escola", dia:true, f:"Deslocamento ativo já conta como atividade física." },
+  { e:"🚴", n:"Andar de bicicleta",    dia:true, f:"Exercício que dá para encaixar na rotina sem academia." },
+  { e:"😴", n:"Dormir de 8 a 9 horas", dia:true, f:"É dormindo que o corpo se recupera e cresce." },
+  { e:"🤸", n:"Alongar antes do treino", dia:true, f:"Prepara músculos e articulações e ajuda a evitar lesões." },
+  { e:"🏃", n:"Correr no recreio",     dia:true, f:"Vale como parte dos 60 minutos de atividade por dia." },
+
+  // --- hábitos de vez em quando ---
+  { e:"🎮", n:"Tarde inteira de videogame", dia:false, f:"Diversão sim — mas o corpo precisa se mexer todo dia." },
+  { e:"📺", n:"Maratona de série",     dia:false, f:"Horas sentado seguidas: melhor deixar para um dia de folga." },
+  { e:"🌙", n:"Dormir depois da meia-noite", dia:false, f:"Noite curta atrapalha a escola e o rendimento no esporte." },
+  { e:"🚗", n:"Ir de carro até a esquina",   dia:false, f:"Distância curta pede caminhada, não carona." }
+];
+
+/* =====================================================================
+   ESTADO E UTILITÁRIOS
+   ===================================================================== */
+
+const CHAVE = "circuito-saudavel-v1";
+const ESTADO = { pontos:0, concluidas:{}, som:false, tema:null };
+
+function carregarEstado(){
+  try{
+    const bruto = localStorage.getItem(CHAVE);
+    if(bruto) Object.assign(ESTADO, JSON.parse(bruto));
+  }catch(e){ /* navegador sem armazenamento: segue com o padrão */ }
+}
+function salvarEstado(){
+  try{ localStorage.setItem(CHAVE, JSON.stringify(ESTADO)); }catch(e){}
+}
+
+const $  = (s, ctx) => (ctx || document).querySelector(s);
+const $$ = (s, ctx) => Array.from((ctx || document).querySelectorAll(s));
+
+function embaralhar(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function sortear(arr, qtd){ return embaralhar(arr).slice(0, qtd); }
+
+function elemento(tag, classe, texto){
+  const el = document.createElement(tag);
+  if(classe) el.className = classe;
+  if(texto != null) el.textContent = texto;
+  return el;
+}
+
+let avisoTimer;
+function avisar(msg){
+  const el = $("#aviso");
+  el.textContent = msg;
+  el.classList.add("visivel");
+  clearTimeout(avisoTimer);
+  avisoTimer = setTimeout(() => el.classList.remove("visivel"), 2200);
+}
+
+/* ---- som curtinho gerado na hora, sem arquivo externo ---- */
+let audioCtx;
+function bip(tipo){
+  if(!ESTADO.som) return;
+  try{
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const ganho = audioCtx.createGain();
+    const notas = { certo:[660, 990], erro:[200, 150], virar:[520, 520], fim:[523, 784] };
+    const [a, b] = notas[tipo] || notas.virar;
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(a, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(b, audioCtx.currentTime + 0.12);
+    ganho.gain.setValueAtTime(0.09, audioCtx.currentTime);
+    ganho.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.22);
+    osc.connect(ganho).connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.24);
+  }catch(e){}
+}
+
+function atualizarPlacar(){
+  $("#placar-pontos").textContent = ESTADO.pontos;
+  $("#placar-estacoes").textContent = Object.keys(ESTADO.concluidas).length + "/6";
+  ESTACOES.forEach(est => {
+    const card = document.getElementById("estacao-" + est.id);
+    if(card) card.classList.toggle("concluida", !!ESTADO.concluidas[est.id]);
+  });
+}
+function ganharPontos(qtd, estacaoId){
+  ESTADO.pontos += qtd;
+  if(estacaoId) ESTADO.concluidas[estacaoId] = true;
+  salvarEstado();
+  atualizarPlacar();
+}
+
+/* ---- painel de fim de estação, reaproveitado por todos os jogos ---- */
+function painelFim(alvo, { emoji, titulo, texto, pontos, aoRepetir, rotuloRepetir }){
+  alvo.innerHTML = "";
+  const box = elemento("div", "fim");
+  box.appendChild(elemento("div", "fim-emoji", emoji));
+  box.appendChild(elemento("h3", null, titulo));
+  if(pontos != null){
+    box.appendChild(elemento("div", "fim-pontos", "+" + pontos + " pts"));
+  }
+  if(texto) box.appendChild(elemento("p", null, texto));
+  const acoes = elemento("div", "fim-acoes");
+  if(aoRepetir){
+    const b = elemento("button", "btn primario", rotuloRepetir || "↻ Jogar de novo");
+    b.addEventListener("click", aoRepetir);
+    acoes.appendChild(b);
+  }
+  const v = elemento("button", "btn", "← Voltar ao circuito");
+  v.addEventListener("click", () => { mostrarTela("tela-menu"); trocarEndereco("menu"); });
+  acoes.appendChild(v);
+  box.appendChild(acoes);
+  alvo.appendChild(box);
+  box.scrollIntoView({ behavior:"smooth", block:"nearest" });
+}
+
+/* ---- confete ---- */
+const confeteCanvas = $("#confete");
+let confeteAnim;
+function soltarConfete(){
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const ctx = confeteCanvas.getContext("2d");
+  const L = confeteCanvas.width  = window.innerWidth;
+  const A = confeteCanvas.height = window.innerHeight;
+  confeteCanvas.style.display = "block";
+  const cores = ["#0B7A4B", "#12A167", "#E85D1F", "#F5B921", "#2FBF7E"];
+  const pecas = Array.from({ length:110 }, () => ({
+    x: Math.random() * L, y: -20 - Math.random() * A * 0.4,
+    l: 5 + Math.random() * 7, a: 8 + Math.random() * 8,
+    vy: 2 + Math.random() * 3.4, vx: -1.4 + Math.random() * 2.8,
+    rot: Math.random() * Math.PI, vrot: -0.12 + Math.random() * 0.24,
+    cor: cores[Math.floor(Math.random() * cores.length)]
+  }));
+  let quadros = 0;
+  cancelAnimationFrame(confeteAnim);
+  (function passo(){
+    ctx.clearRect(0, 0, L, A);
+    pecas.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.rot += p.vrot;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.cor;
+      ctx.fillRect(-p.l / 2, -p.a / 2, p.l, p.a);
+      ctx.restore();
+    });
+    quadros++;
+    if(quadros < 190) confeteAnim = requestAnimationFrame(passo);
+    else { ctx.clearRect(0, 0, L, A); confeteCanvas.style.display = "none"; }
+  })();
+}
+
+/* ---- ajuste do tamanho das casas dos tabuleiros ----
+   As casas usam --cel para calcular font-size. O tabuleiro começa escondido
+   (largura 0), então o valor só é gravado quando ele realmente aparece. */
+const ajustes = [];
+function acompanharTamanho(grade){
+  const ajustar = () => {
+    if(!grade.clientWidth) return;
+    const estilo = getComputedStyle(grade);
+    const n = parseInt(estilo.getPropertyValue("--n"), 10) || 10;
+    const recuo = parseFloat(estilo.paddingLeft) + parseFloat(estilo.paddingRight);
+    const vao = (parseFloat(estilo.columnGap) || 0) * (n - 1);
+    const cel = (grade.clientWidth - recuo - vao) / n;
+    grade.style.setProperty("--cel", Math.max(cel, 0) + "px");
+  };
+  ajustes.push(ajustar);
+  if(window.ResizeObserver) new ResizeObserver(ajustar).observe(grade);
+  window.addEventListener("resize", ajustar);
+  ajustar();
+}
+function reajustarTabuleiros(){ ajustes.forEach(fn => fn()); }
+
+/* ---- teclado na tela, compartilhado ---- */
+function montarTeclado(container, aoTeclar, extras){
+  container.innerHTML = "";
+  const linhas = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
+  const teclaLarga = ex => {
+    const b = elemento("button", "tecla larga", ex.rotulo);
+    b.type = "button";
+    b.addEventListener("click", ex.acao);
+    return b;
+  };
+  linhas.forEach((linha, i) => {
+    const div = elemento("div", "teclado-linha");
+    // as teclas utilitárias ficam nas pontas da última fila, como num teclado comum
+    if(i === 2 && extras && extras[0]) div.appendChild(teclaLarga(extras[0]));
+    linha.split("").forEach(letra => {
+      const b = elemento("button", "tecla", letra);
+      b.type = "button";
+      b.dataset.letra = letra;
+      b.addEventListener("click", () => aoTeclar(letra));
+      div.appendChild(b);
+    });
+    if(i === 2 && extras && extras[1]) div.appendChild(teclaLarga(extras[1]));
+    container.appendChild(div);
+  });
+}
+
+/* =====================================================================
+   NAVEGAÇÃO
+   ===================================================================== */
+
+let telaAtual = "tela-menu";
+function mostrarTela(id){
+  $$(".tela").forEach(t => t.classList.toggle("ativa", t.id === id));
+  telaAtual = id;
+  reajustarTabuleiros();
+  window.scrollTo({ top:0, behavior:"smooth" });
+}
+
+/* Abre uma estação e grava o endereço em #id — assim dá para incorporar
+   um jogo específico no Google Sites (…/index.html#quiz, por exemplo). */
+function abrirEstacao(est){
+  mostrarTela(est.tela);
+  if(est.id === "quiz")    iniciarQuiz();
+  if(est.id === "memoria") iniciarMemoria();
+  if(est.id === "forca")   iniciarForca();
+  if(est.id === "prato")   prepararPrato();
+  trocarEndereco(est.id);
+}
+
+function trocarEndereco(id){
+  try{ history.replaceState(null, "", "#" + id); }catch(e){}
+}
+
+function aplicarEndereco(){
+  const alvo = (location.hash || "").replace("#", "").toLowerCase();
+  const est = ESTACOES.find(e => e.id === alvo);
+  if(est) abrirEstacao(est);
+}
+
+function montarMenu(){
+  const alvo = $("#lista-estacoes");
+  alvo.innerHTML = "";
+  ESTACOES.forEach((est, i) => {
+    // div em vez de button: o cartão tem título e parágrafo dentro,
+    // que não são conteúdo válido para <button>
+    const card = elemento("div", "estacao");
+    card.id = "estacao-" + est.id;
+    card.setAttribute("role", "button");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("aria-label", "Estação " + est.num + ": " + est.nome);
+    card.style.animationDelay = (i * 55) + "ms";
+    card.innerHTML =
+      '<span class="selo-ok" aria-hidden="true">✓</span>' +
+      '<div class="estacao-topo">' +
+        '<span class="estacao-num">' + est.num + '</span>' +
+        '<h3>' + est.nome + '</h3>' +
+        '<span class="estacao-icone" aria-hidden="true">' + est.icone + '</span>' +
+      '</div>' +
+      '<p>' + est.desc + '</p>' +
+      '<div class="meta">' + est.tags.map((t, j) =>
+        '<span class="tag' + (j === 0 ? ' verde' : '') + '">' + t + '</span>').join("") + '</div>';
+    card.addEventListener("click", () => abrirEstacao(est));
+    card.addEventListener("keydown", e => {
+      if(e.key === "Enter" || e.key === " "){ e.preventDefault(); abrirEstacao(est); }
+    });
+    alvo.appendChild(card);
+  });
+  atualizarPlacar();
+}
+
+/* =====================================================================
+   ESTAÇÃO 01 — CAÇA-PALAVRAS
+   ===================================================================== */
+
+const CP = { nivel:"facil", grade:null, palavras:[], achadas:new Set(), n:9, selecionando:false, inicio:null, caminho:[] };
+
+function gerarCaca(n, palavras, dirs){
+  for(let tentativa = 0; tentativa < 300; tentativa++){
+    const g = Array.from({ length:n }, () => Array(n).fill(""));
+    const colocadas = [];
+    let deuCerto = true;
+
+    for(const palavra of palavras.slice().sort((a, b) => b.length - a.length)){
+      const opcoes = [];
+      for(const [dr, dc] of dirs){
+        for(let r = 0; r < n; r++){
+          for(let c = 0; c < n; c++){
+            const fr = r + dr * (palavra.length - 1);
+            const fc = c + dc * (palavra.length - 1);
+            if(fr < 0 || fr >= n || fc < 0 || fc >= n) continue;
+            let cabe = true;
+            for(let i = 0; i < palavra.length; i++){
+              const atual = g[r + dr * i][c + dc * i];
+              if(atual && atual !== palavra[i]){ cabe = false; break; }
+            }
+            if(cabe) opcoes.push([r, c, dr, dc]);
+          }
+        }
+      }
+      if(!opcoes.length){ deuCerto = false; break; }
+      const [r, c, dr, dc] = opcoes[Math.floor(Math.random() * opcoes.length)];
+      const celulas = [];
+      for(let i = 0; i < palavra.length; i++){
+        g[r + dr * i][c + dc * i] = palavra[i];
+        celulas.push([r + dr * i, c + dc * i]);
+      }
+      colocadas.push({ palavra, celulas });
+    }
+    if(!deuCerto) continue;
+
+    const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    for(let r = 0; r < n; r++){
+      for(let c = 0; c < n; c++){
+        if(!g[r][c]) g[r][c] = alfabeto[Math.floor(Math.random() * 26)];
+      }
+    }
+    return { grade:g, colocadas };
+  }
+  return null;
+}
+
+function novoCaca(){
+  const cfg = CONFIG_CACA[CP.nivel];
+  let resultado = null;
+  for(let t = 0; t < 12 && !resultado; t++){
+    resultado = gerarCaca(cfg.n, sortear(BANCO_CACA[CP.nivel], cfg.qtd), cfg.dirs);
+  }
+  if(!resultado){ avisar("Não foi possível sortear. Tente de novo."); return; }
+
+  CP.grade = resultado.grade;
+  CP.palavras = resultado.colocadas;
+  CP.achadas = new Set();
+  CP.n = cfg.n;
+  $("#cp-fim").innerHTML = "";
+
+  const grade = $("#cp-grade");
+  grade.style.setProperty("--n", cfg.n);
+  grade.innerHTML = "";
+  for(let r = 0; r < cfg.n; r++){
+    for(let c = 0; c < cfg.n; c++){
+      const cel = elemento("div", "cp-celula", CP.grade[r][c]);
+      cel.dataset.r = r; cel.dataset.c = c;
+      grade.appendChild(cel);
+    }
+  }
+  reajustarTabuleiros();
+  desenharListaCaca();
+}
+
+function desenharListaCaca(){
+  const lista = $("#cp-palavras");
+  lista.innerHTML = "";
+  CP.palavras.forEach(({ palavra }) => {
+    const li = elemento("li", CP.achadas.has(palavra) ? "ok" : "", palavra);
+    li.dataset.palavra = palavra;
+    lista.appendChild(li);
+  });
+  $("#cp-contador").textContent = "(" + CP.achadas.size + "/" + CP.palavras.length + ")";
+}
+
+function celulaCaca(r, c){
+  return $('#cp-grade .cp-celula[data-r="' + r + '"][data-c="' + c + '"]');
+}
+
+function caminhoEntre(a, b){
+  const dr = Math.sign(b[0] - a[0]);
+  const dc = Math.sign(b[1] - a[1]);
+  const distL = Math.abs(b[0] - a[0]);
+  const distC = Math.abs(b[1] - a[1]);
+  // só aceita linha reta: horizontal, vertical ou diagonal perfeita
+  if(!(distL === 0 || distC === 0 || distL === distC)) return null;
+  const passos = Math.max(distL, distC);
+  const caminho = [];
+  for(let i = 0; i <= passos; i++) caminho.push([a[0] + dr * i, a[1] + dc * i]);
+  return caminho;
+}
+
+function pintarSelecao(caminho){
+  $$("#cp-grade .cp-celula.marcada").forEach(el => el.classList.remove("marcada"));
+  (caminho || []).forEach(([r, c]) => {
+    const el = celulaCaca(r, c);
+    if(el && !el.classList.contains("achada")) el.classList.add("marcada");
+  });
+}
+
+function finalizarSelecao(){
+  if(!CP.caminho.length){ pintarSelecao([]); return; }
+  const texto = CP.caminho.map(([r, c]) => CP.grade[r][c]).join("");
+  const invertido = texto.split("").reverse().join("");
+  const alvo = CP.palavras.find(p =>
+    !CP.achadas.has(p.palavra) && (p.palavra === texto || p.palavra === invertido));
+
+  pintarSelecao([]);
+  if(alvo){
+    CP.achadas.add(alvo.palavra);
+    CP.caminho.forEach(([r, c]) => {
+      const el = celulaCaca(r, c);
+      if(el) el.classList.add("achada");
+    });
+    bip("certo");
+    desenharListaCaca();
+    if(CP.achadas.size === CP.palavras.length) venceuCaca();
+  }else if(CP.caminho.length > 1){
+    bip("erro"); // toque solto numa casa não conta como tentativa errada
+  }
+  CP.caminho = [];
+  CP.inicio = null;
+}
+
+function venceuCaca(){
+  const cfg = CONFIG_CACA[CP.nivel];
+  const reveladas = $$("#cp-grade .cp-celula.revelada").length > 0;
+  const pontos = CP.palavras.length * cfg.pts;
+  ganharPontos(pontos, "caca");
+  bip("fim");
+  soltarConfete();
+  painelFim($("#cp-fim"), {
+    emoji: "🏅",
+    titulo: "Nível concluído!",
+    pontos,
+    texto: reveladas
+      ? "Todas as palavras saíram — algumas com ajuda. Tente o próximo nível sem dica!"
+      : "Todas as palavras encontradas. Que tal subir de nível?",
+    aoRepetir: novoCaca,
+    rotuloRepetir: "↻ Novo sorteio"
+  });
+}
+
+function ligarCaca(){
+  const grade = $("#cp-grade");
+  acompanharTamanho(grade);
+
+  grade.addEventListener("pointerdown", e => {
+    const cel = e.target.closest(".cp-celula");
+    if(!cel) return;
+    e.preventDefault();
+    grade.setPointerCapture(e.pointerId);
+    CP.selecionando = true;
+    CP.inicio = [+cel.dataset.r, +cel.dataset.c];
+    CP.caminho = [CP.inicio];
+    pintarSelecao(CP.caminho);
+  });
+
+  grade.addEventListener("pointermove", e => {
+    if(!CP.selecionando) return;
+    const sob = document.elementFromPoint(e.clientX, e.clientY);
+    const cel = sob && sob.closest(".cp-celula");
+    if(!cel) return;
+    const novo = caminhoEntre(CP.inicio, [+cel.dataset.r, +cel.dataset.c]);
+    if(novo){ CP.caminho = novo; pintarSelecao(novo); }
+  });
+
+  const soltar = () => {
+    if(!CP.selecionando) return;
+    CP.selecionando = false;
+    finalizarSelecao();
+  };
+  grade.addEventListener("pointerup", soltar);
+  grade.addEventListener("pointercancel", soltar);
+  window.addEventListener("pointerup", soltar);
+
+  $$(".nivel").forEach(btn => {
+    btn.addEventListener("click", () => {
+      $$(".nivel").forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
+      CP.nivel = btn.dataset.nivel;
+      novoCaca();
+    });
+  });
+
+  $("#cp-novo").addEventListener("click", novoCaca);
+  $("#cp-imprimir").addEventListener("click", () => window.print());
+
+  $("#cp-dica").addEventListener("click", () => {
+    const restantes = CP.palavras.filter(p => !CP.achadas.has(p.palavra));
+    if(!restantes.length) return;
+    const alvo = restantes[Math.floor(Math.random() * restantes.length)];
+    CP.achadas.add(alvo.palavra);
+    alvo.celulas.forEach(([r, c]) => {
+      const el = celulaCaca(r, c);
+      if(el) el.classList.add("revelada");
+    });
+    desenharListaCaca();
+    avisar("Revelada: " + alvo.palavra);
+    if(CP.achadas.size === CP.palavras.length) venceuCaca();
+  });
+}
+
+/* =====================================================================
+   ESTAÇÃO 02 — PALAVRAS CRUZADAS
+   ===================================================================== */
+
+const CZ = { casas:[], ativa:null, dir:"H", reveladas:new Set(), resolvidas:new Set(), terminado:false };
+
+function montarCruzadas(){
+  const n = CRUZADAS.n;
+  const grade = $("#cz-grade");
+  grade.style.setProperty("--n", n);
+  grade.innerHTML = "";
+  CZ.casas = Array.from({ length:n }, () => Array(n).fill(null));
+  CZ.reveladas = new Set();
+  CZ.resolvidas = new Set();
+  CZ.ativa = null;
+  CZ.terminado = false;
+  $("#cz-fim").innerHTML = "";
+
+  // números que abrem palavra
+  const numeros = {};
+  CRUZADAS.entradas.forEach(e => { numeros[e.r + "," + e.c] = e.num; });
+
+  for(let r = 0; r < n; r++){
+    for(let c = 0; c < n; c++){
+      const letra = CRUZADAS.grade[r][c];
+      if(letra === "."){
+        grade.appendChild(elemento("div", "cz-bloco"));
+        continue;
+      }
+      const cel = elemento("div", "cz-celula");
+      cel.dataset.r = r; cel.dataset.c = c;
+      cel.setAttribute("role", "button");
+      cel.setAttribute("tabindex", "-1");
+      const num = numeros[r + "," + c];
+      if(num) cel.appendChild(elemento("span", "n", num));
+      const span = elemento("span", "v", "");
+      cel.appendChild(span);
+      grade.appendChild(cel);
+      CZ.casas[r][c] = { solucao:letra, valor:"", el:cel, span, entradas:{} };
+    }
+  }
+
+  // liga cada casa às entradas (horizontal e vertical) que passam por ela
+  CRUZADAS.entradas.forEach((e, idx) => {
+    const dr = e.dir === "V" ? 1 : 0;
+    const dc = e.dir === "H" ? 1 : 0;
+    for(let i = 0; i < e.resp.length; i++){
+      const casa = CZ.casas[e.r + dr * i][e.c + dc * i];
+      if(casa) casa.entradas[e.dir] = idx;
+    }
+  });
+
+  reajustarTabuleiros();
+  montarDicas();
+}
+
+function montarDicas(){
+  ["H", "V"].forEach(dir => {
+    const lista = $(dir === "H" ? "#cz-dicas-h" : "#cz-dicas-v");
+    lista.innerHTML = "";
+    CRUZADAS.entradas
+      .map((e, idx) => ({ e, idx }))
+      .filter(o => o.e.dir === dir)
+      .sort((a, b) => a.e.num - b.e.num)
+      .forEach(({ e, idx }) => {
+        const li = elemento("li");
+        li.dataset.idx = idx;
+        li.appendChild(elemento("b", null, e.num));
+        li.appendChild(elemento("span", null, e.dica));
+        li.addEventListener("click", () => {
+          CZ.dir = dir;
+          const [r, c] = primeiraCasaLivre(e);   // já começa onde falta preencher
+          focarCasa(r, c);
+        });
+        lista.appendChild(li);
+      });
+  });
+}
+
+function entradaAtiva(){
+  if(!CZ.ativa) return null;
+  const casa = CZ.casas[CZ.ativa[0]][CZ.ativa[1]];
+  if(!casa) return null;
+  const idx = casa.entradas[CZ.dir];
+  return idx == null ? null : { idx, e:CRUZADAS.entradas[idx] };
+}
+
+function casasDaEntrada(e){
+  const dr = e.dir === "V" ? 1 : 0;
+  const dc = e.dir === "H" ? 1 : 0;
+  const saida = [];
+  for(let i = 0; i < e.resp.length; i++) saida.push([e.r + dr * i, e.c + dc * i]);
+  return saida;
+}
+
+function focarCasa(r, c, alternar){
+  const casa = CZ.casas[r] && CZ.casas[r][c];
+  if(!casa) return;
+  const mesma = CZ.ativa && CZ.ativa[0] === r && CZ.ativa[1] === c;
+  if(alternar && mesma){
+    const outra = CZ.dir === "H" ? "V" : "H";
+    if(casa.entradas[outra] != null) CZ.dir = outra;
+  }
+  if(casa.entradas[CZ.dir] == null){
+    CZ.dir = CZ.dir === "H" ? "V" : "H";
+  }
+  CZ.ativa = [r, c];
+  pintarCruzadas();
+}
+
+function pintarCruzadas(){
+  $$("#cz-grade .cz-celula").forEach(el => el.classList.remove("ativa", "palavra-ativa"));
+  $$("#cz-dicas-h li, #cz-dicas-v li").forEach(li => li.classList.remove("sel"));
+
+  const atual = entradaAtiva();
+  if(atual){
+    casasDaEntrada(atual.e).forEach(([r, c]) => {
+      const casa = CZ.casas[r][c];
+      if(casa) casa.el.classList.add("palavra-ativa");
+    });
+    const li = $('[data-idx="' + atual.idx + '"]');
+    if(li){
+      li.classList.add("sel");
+      li.scrollIntoView({ block:"nearest" });
+    }
+    $("#cz-dica-num").textContent = atual.e.num + (atual.e.dir === "H" ? " →" : " ↓");
+    $("#cz-dica-texto").textContent = atual.e.dica;
+  }
+  if(CZ.ativa){
+    const casa = CZ.casas[CZ.ativa[0]][CZ.ativa[1]];
+    if(casa) casa.el.classList.add("ativa");
+  }
+  CRUZADAS.entradas.forEach((e, idx) => {
+    const li = $('[data-idx="' + idx + '"]');
+    if(li) li.classList.toggle("feita", CZ.resolvidas.has(idx));
+  });
+}
+
+/* Casa já resolvida: veio de um cruzamento certo ou de "revelar".
+   O cursor pula essas casas para o aluno só digitar o que falta. */
+function casaPronta(r, c){
+  const casa = CZ.casas[r] && CZ.casas[r][c];
+  return !!casa && casa.valor !== "" && casa.valor === casa.solucao;
+}
+
+/* Primeira casa da palavra que ainda precisa ser preenchida. */
+function primeiraCasaLivre(e){
+  const casas = casasDaEntrada(e);
+  return casas.find(([r, c]) => !casaPronta(r, c)) || casas[0];
+}
+
+function escreverLetra(letra){
+  if(!CZ.ativa) return;
+  // caiu numa casa já resolvida: anda até a próxima que dá para escrever
+  if(casaPronta(CZ.ativa[0], CZ.ativa[1])){
+    avancar(1, true);
+    // não sobrou nada à frente: volta para a primeira casa livre da palavra
+    if(casaPronta(CZ.ativa[0], CZ.ativa[1])){
+      const alvo = entradaAtiva();
+      if(alvo){ CZ.ativa = primeiraCasaLivre(alvo.e); pintarCruzadas(); }
+    }
+  }
+  const [r, c] = CZ.ativa;
+  const casa = CZ.casas[r][c];
+  if(!casa || casaPronta(r, c)) return;  // só sobraram casas prontas
+  casa.valor = letra;
+  casa.span.textContent = letra;
+  casa.el.classList.remove("errada");
+  conferirEntradas();
+  avancar(1, true);
+}
+
+/* pularProntas fica ligado ao digitar (o cursor salta os cruzamentos já certos)
+   e desligado no ⌫ e nas setas, para o aluno conseguir voltar em qualquer casa. */
+function avancar(passo, pularProntas){
+  const atual = entradaAtiva();
+  if(!atual || !CZ.ativa) return;
+  const casas = casasDaEntrada(atual.e);
+  const pos = casas.findIndex(([r, c]) => r === CZ.ativa[0] && c === CZ.ativa[1]);
+  let i = pos + passo;
+  if(pularProntas){
+    while(casas[i] && casaPronta(casas[i][0], casas[i][1])) i += passo;
+  }
+  if(casas[i]) CZ.ativa = casas[i];
+  pintarCruzadas();
+}
+
+/* Recalcula tudo do zero: uma palavra pode deixar de estar certa quando o
+   aluno troca a letra de um cruzamento, então o estado nunca é acumulativo. */
+function conferirEntradas(){
+  let novas = 0;
+  CRUZADAS.entradas.forEach((e, idx) => {
+    const texto = casasDaEntrada(e).map(([r, c]) => CZ.casas[r][c].valor).join("");
+    const certa = texto === e.resp;
+    if(certa && !CZ.resolvidas.has(idx)){ CZ.resolvidas.add(idx); novas++; }
+    if(!certa) CZ.resolvidas.delete(idx);
+  });
+
+  CZ.casas.forEach(linha => linha.forEach(casa => {
+    if(casa) casa.el.classList.remove("correta");
+  }));
+  CZ.resolvidas.forEach(idx => {
+    casasDaEntrada(CRUZADAS.entradas[idx]).forEach(([r, c]) =>
+      CZ.casas[r][c].el.classList.add("correta"));
+  });
+
+  if(novas) bip("certo");
+  pintarCruzadas();
+  if(!CZ.terminado && CZ.resolvidas.size === CRUZADAS.entradas.length) venceuCruzadas();
+}
+
+function venceuCruzadas(){
+  CZ.terminado = true;
+  const pontos = Math.max(20, Math.round((CRUZADAS.entradas.length * 5) - CZ.reveladas.size * 2));
+  ganharPontos(pontos, "cruzadas");
+  bip("fim");
+  soltarConfete();
+  painelFim($("#cz-fim"), {
+    emoji: "🧩",
+    titulo: "Cruzadas completas!",
+    pontos,
+    texto: CZ.reveladas.size
+      ? "Foram " + CZ.reveladas.size + " letra(s) reveladas. Dá para fechar sem nenhuma?"
+      : "As 18 palavras preenchidas sem nenhuma revelação. Impecável.",
+    aoRepetir: () => { montarCruzadas(); pintarCruzadas(); },
+    rotuloRepetir: "↻ Recomeçar"
+  });
+}
+
+function ligarCruzadas(){
+  acompanharTamanho($("#cz-grade"));
+
+  $("#cz-grade").addEventListener("pointerdown", e => {
+    const cel = e.target.closest(".cz-celula");
+    if(!cel) return;
+    e.preventDefault();
+    focarCasa(+cel.dataset.r, +cel.dataset.c, true);
+  });
+
+  document.addEventListener("keydown", e => {
+    if(telaAtual !== "tela-cruzadas" || !CZ.ativa) return;
+    const t = e.target;
+    if(t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA")) return;
+
+    if(/^[a-zA-Z]$/.test(e.key)){
+      e.preventDefault();
+      escreverLetra(e.key.toUpperCase());
+      return;
+    }
+    const setas = { ArrowRight:[0, 1, "H"], ArrowLeft:[0, -1, "H"], ArrowDown:[1, 0, "V"], ArrowUp:[-1, 0, "V"] };
+    if(setas[e.key]){
+      e.preventDefault();
+      const [dr, dc, dir] = setas[e.key];
+      if(CZ.dir !== dir){ CZ.dir = dir; pintarCruzadas(); return; }
+      let [r, c] = CZ.ativa;
+      for(let i = 0; i < CRUZADAS.n; i++){
+        r += dr; c += dc;
+        if(r < 0 || c < 0 || r >= CRUZADAS.n || c >= CRUZADAS.n) break;
+        if(CZ.casas[r][c]){ CZ.ativa = [r, c]; pintarCruzadas(); break; }
+      }
+      return;
+    }
+    if(e.key === "Backspace"){
+      e.preventDefault();
+      const [r, c] = CZ.ativa;
+      const casa = CZ.casas[r][c];
+      if(casa.valor && !CZ.reveladas.has(r + "," + c)){
+        casa.valor = ""; casa.span.textContent = "";
+        casa.el.classList.remove("errada", "correta");
+      }else{
+        avancar(-1);
+        const [r2, c2] = CZ.ativa;
+        const anterior = CZ.casas[r2][c2];
+        if(anterior && !CZ.reveladas.has(r2 + "," + c2)){
+          anterior.valor = ""; anterior.span.textContent = "";
+          anterior.el.classList.remove("errada", "correta");
+        }
+      }
+      conferirEntradas();
+      return;
+    }
+    if(e.key === " "){
+      e.preventDefault();
+      focarCasa(CZ.ativa[0], CZ.ativa[1], true);
+    }
+  });
+
+  montarTeclado($("#cz-teclado"), escreverLetra, [
+    { rotulo:"⇄ Direção", acao(){ if(CZ.ativa) focarCasa(CZ.ativa[0], CZ.ativa[1], true); } },
+    { rotulo:"⌫ Apagar", acao(){
+        if(!CZ.ativa) return;
+        const [r, c] = CZ.ativa;
+        const casa = CZ.casas[r][c];
+        if(casa.valor && !CZ.reveladas.has(r + "," + c)){
+          casa.valor = ""; casa.span.textContent = "";
+          casa.el.classList.remove("errada", "correta");
+          conferirEntradas();
+        }else avancar(-1);
+      } }
+  ]);
+
+  $("#cz-verificar").addEventListener("click", () => {
+    let erros = 0, vazias = 0;
+    CZ.casas.forEach(linha => linha.forEach(casa => {
+      if(!casa) return;
+      if(!casa.valor){ vazias++; return; }
+      if(casa.valor !== casa.solucao){ casa.el.classList.add("errada"); erros++; }
+    }));
+    setTimeout(() => $$("#cz-grade .errada").forEach(el => el.classList.remove("errada")), 1600);
+    if(erros) { avisar(erros + " letra(s) fora do lugar"); bip("erro"); }
+    else if(vazias) avisar("Nenhum erro até aqui — faltam " + vazias + " casas");
+    else avisar("Tudo certo!");
+  });
+
+  $("#cz-revelar-letra").addEventListener("click", () => {
+    if(!CZ.ativa) { avisar("Escolha uma casa primeiro"); return; }
+    const [r, c] = CZ.ativa;
+    const casa = CZ.casas[r][c];
+    casa.valor = casa.solucao;
+    casa.span.textContent = casa.solucao;
+    casa.el.classList.remove("errada");
+    CZ.reveladas.add(r + "," + c);
+    conferirEntradas();
+    avancar(1, true);
+  });
+
+  $("#cz-revelar-palavra").addEventListener("click", () => {
+    const atual = entradaAtiva();
+    if(!atual){ avisar("Escolha uma palavra primeiro"); return; }
+    casasDaEntrada(atual.e).forEach(([r, c]) => {
+      const casa = CZ.casas[r][c];
+      casa.valor = casa.solucao;
+      casa.span.textContent = casa.solucao;
+      CZ.reveladas.add(r + "," + c);
+    });
+    conferirEntradas();
+  });
+
+  $("#cz-limpar").addEventListener("click", () => { montarCruzadas(); pintarCruzadas(); });
+  $("#cz-imprimir").addEventListener("click", () => window.print());
+}
+
+/* =====================================================================
+   ESTAÇÃO 03 — QUIZ
+   ===================================================================== */
+
+const QZ = { fila:[], i:0, acertos:0, respondida:false };
+
+function iniciarQuiz(){
+  QZ.fila = sortear(PERGUNTAS, 10);
+  QZ.i = 0; QZ.acertos = 0;
+  $("#quiz-fim").innerHTML = "";
+  $("#quiz-jogo").classList.remove("oculto");
+  desenharPergunta();
+}
+
+function desenharPergunta(){
+  const q = QZ.fila[QZ.i];
+  QZ.respondida = false;
+  $("#quiz-num").textContent = "Pergunta " + (QZ.i + 1) + " de " + QZ.fila.length +
+                               " · " + QZ.acertos + " acerto(s)";
+  $("#quiz-pergunta").textContent = q.p;
+  $("#quiz-progresso").style.width = (QZ.i / QZ.fila.length * 100) + "%";
+  $("#quiz-explicacao").classList.remove("visivel");
+  $("#quiz-proxima").classList.add("oculto");
+
+  const caixa = $("#quiz-alternativas");
+  caixa.innerHTML = "";
+  embaralhar(q.alts).forEach((alt, i) => {
+    const b = elemento("button", "alt");
+    b.appendChild(elemento("span", "letra", "ABCD"[i]));
+    b.appendChild(elemento("span", null, alt));
+    b.addEventListener("click", () => responder(b, alt, q));
+    caixa.appendChild(b);
+  });
+}
+
+function responder(botao, escolha, q){
+  if(QZ.respondida) return;
+  QZ.respondida = true;
+  const certo = escolha === q.certa;
+  if(certo){ QZ.acertos++; bip("certo"); } else { bip("erro"); }
+
+  $$("#quiz-alternativas .alt").forEach(b => {
+    b.disabled = true;
+    const texto = b.lastChild.textContent;
+    if(texto === q.certa) b.classList.add("certa");
+    else if(b === botao) b.classList.add("errada");
+  });
+
+  const exp = $("#quiz-explicacao");
+  exp.innerHTML = "";
+  exp.appendChild(elemento("b", null, certo ? "Isso aí!" : "Quase lá"));
+  exp.appendChild(document.createTextNode(q.exp));
+  exp.classList.add("visivel");
+
+  const proxima = $("#quiz-proxima");
+  proxima.textContent = QZ.i === QZ.fila.length - 1 ? "Ver resultado →" : "Próxima →";
+  proxima.classList.remove("oculto");
+}
+
+function ligarQuiz(){
+  $("#quiz-proxima").addEventListener("click", () => {
+    QZ.i++;
+    if(QZ.i < QZ.fila.length) desenharPergunta();
+    else terminarQuiz();
+  });
+}
+
+function terminarQuiz(){
+  $("#quiz-jogo").classList.add("oculto");
+  $("#quiz-progresso").style.width = "100%";
+  const pontos = QZ.acertos * 10;
+  ganharPontos(pontos, "quiz");
+  bip("fim");
+  if(QZ.acertos >= 8) soltarConfete();
+  const mensagens = [
+    { min:10, emoji:"🥇", t:"Nota máxima!",   d:"Dez de dez. Você domina o assunto." },
+    { min:8,  emoji:"🥈", t:"Muito bem!",     d:"Faltou pouco para a nota cheia." },
+    { min:6,  emoji:"🥉", t:"Bom trabalho",   d:"A base está firme. Releia as explicações e tente de novo." },
+    { min:0,  emoji:"📚", t:"Bora treinar",   d:"Cada pergunta tem uma explicação embaixo — vale uma segunda rodada." }
+  ];
+  const m = mensagens.find(x => QZ.acertos >= x.min);
+  painelFim($("#quiz-fim"), {
+    emoji: m.emoji,
+    titulo: m.t,
+    pontos,
+    texto: QZ.acertos + " de " + QZ.fila.length + " acertos. " + m.d,
+    aoRepetir: iniciarQuiz,
+    rotuloRepetir: "↻ Novas perguntas"
+  });
+}
+
+/* =====================================================================
+   ESTAÇÃO 04 — MEMÓRIA
+   ===================================================================== */
+
+const ME = { viradas:[], pares:0, tentativas:0, travado:false };
+
+const VERSO_CARTA =
+  '<svg viewBox="0 0 40 40" aria-hidden="true">' +
+    '<circle cx="20" cy="20" r="16" fill="none" stroke="currentColor" stroke-width="3"/>' +
+    '<line x1="20" y1="4" x2="20" y2="36" stroke="currentColor" stroke-width="3"/>' +
+    '<circle cx="20" cy="20" r="5.6" fill="none" stroke="currentColor" stroke-width="3"/>' +
+  '</svg>';
+
+function iniciarMemoria(){
+  ME.viradas = []; ME.pares = 0; ME.tentativas = 0; ME.travado = false;
+  $("#mem-fim").innerHTML = "";
+  const escolhidos = sortear(PARES_MEMORIA, 8);
+  const cartas = embaralhar(escolhidos.flatMap(p => ([
+    { par:p.nome, tipo:"emoji", conteudo:p.emoji },
+    { par:p.nome, tipo:"nome",  conteudo:p.nome }
+  ])));
+
+  const grade = $("#mem-grade");
+  grade.innerHTML = "";
+  cartas.forEach(carta => {
+    const btn = elemento("button", "carta");
+    btn.dataset.par = carta.par;
+    btn.setAttribute("aria-label", "Carta virada para baixo");
+    btn.innerHTML =
+      '<span class="carta-int">' +
+        '<span class="carta-face carta-frente">' + VERSO_CARTA + '</span>' +
+        '<span class="carta-face carta-verso' + (carta.tipo === "emoji" ? " emoji" : "") + '">' +
+          carta.conteudo +
+        '</span>' +
+      '</span>';
+    btn.addEventListener("click", () => virarCarta(btn));
+    grade.appendChild(btn);
+  });
+  atualizarStatusMemoria();
+}
+
+function atualizarStatusMemoria(){
+  $("#mem-status").textContent = "Pares: " + ME.pares + "/8 · Tentativas: " + ME.tentativas;
+}
+
+function virarCarta(btn){
+  if(ME.travado || btn.classList.contains("virada") || btn.classList.contains("par")) return;
+  btn.classList.add("virada");
+  bip("virar");
+  ME.viradas.push(btn);
+  if(ME.viradas.length < 2) return;
+
+  ME.tentativas++;
+  const [a, b] = ME.viradas;
+  if(a.dataset.par === b.dataset.par){
+    a.classList.add("par"); b.classList.add("par");
+    a.classList.remove("virada"); b.classList.remove("virada");
+    ME.viradas = [];
+    ME.pares++;
+    bip("certo");
+    atualizarStatusMemoria();
+    if(ME.pares === 8) venceuMemoria();
+  }else{
+    ME.travado = true;
+    bip("erro");
+    atualizarStatusMemoria();
+    setTimeout(() => {
+      a.classList.remove("virada");
+      b.classList.remove("virada");
+      ME.viradas = [];
+      ME.travado = false;
+    }, 850);
+  }
+}
+
+function venceuMemoria(){
+  const bonus = ME.tentativas <= 12 ? 20 : ME.tentativas <= 18 ? 10 : 0;
+  const pontos = 40 + bonus;
+  ganharPontos(pontos, "memoria");
+  bip("fim");
+  soltarConfete();
+  painelFim($("#mem-fim"), {
+    emoji: "🧠",
+    titulo: "Todos os pares!",
+    pontos,
+    texto: "Você fechou em " + ME.tentativas + " tentativas" +
+           (bonus ? " e ganhou " + bonus + " pontos de bônus pela memória afiada." :
+                    ". Menos de 12 tentativas rendem bônus — tente de novo!"),
+    aoRepetir: iniciarMemoria,
+    rotuloRepetir: "↻ Nova partida"
+  });
+}
+
+/* =====================================================================
+   ESTAÇÃO 05 — FORCA
+   ===================================================================== */
+
+const FO = { palavra:"", dica:"", usadas:new Set(), erros:0, max:6, fim:false };
+const CARINHAS = ["💪", "🙂", "😅", "😓", "😰", "🥵", "😵"];
+
+function iniciarForca(){
+  const escolhida = PALAVRAS_FORCA[Math.floor(Math.random() * PALAVRAS_FORCA.length)];
+  FO.palavra = escolhida.p;
+  FO.dica = escolhida.d;
+  FO.usadas = new Set();
+  FO.erros = 0;
+  FO.fim = false;
+  $("#fo-dica").textContent = FO.dica;
+  $("#fo-fim").innerHTML = "";
+
+  const energia = $("#fo-energia");
+  energia.innerHTML = "";
+  for(let i = 0; i < FO.max; i++) energia.appendChild(elemento("i"));
+
+  montarTeclado($("#fo-teclado"), tentarLetra);
+  desenharForca();
+}
+
+function desenharForca(){
+  const alvo = $("#fo-palavra");
+  alvo.innerHTML = "";
+  FO.palavra.split("").forEach(letra => {
+    const revelada = FO.usadas.has(letra);
+    const slot = elemento("span", "letra-slot" + (revelada ? " aparece" : ""), revelada ? letra : "");
+    if(FO.fim && !revelada) { slot.textContent = letra; slot.classList.add("perdida"); }
+    alvo.appendChild(slot);
+  });
+  $$("#fo-energia i").forEach((el, i) => el.classList.toggle("gasta", i >= FO.max - FO.erros));
+  $("#fo-atleta").textContent = CARINHAS[Math.min(FO.erros, CARINHAS.length - 1)];
+}
+
+function tentarLetra(letra){
+  if(FO.fim || FO.usadas.has(letra)) return;
+  FO.usadas.add(letra);
+  const tecla = $('#fo-teclado .tecla[data-letra="' + letra + '"]');
+  const acertou = FO.palavra.includes(letra);
+  if(tecla){
+    tecla.classList.add(acertou ? "certa" : "errada");
+    tecla.disabled = true;
+  }
+  if(!acertou){ FO.erros++; bip("erro"); } else { bip("certo"); }
+
+  const completou = FO.palavra.split("").every(l => FO.usadas.has(l));
+  if(completou || FO.erros >= FO.max) FO.fim = true;
+  desenharForca();
+
+  if(completou) venceuForca();
+  else if(FO.erros >= FO.max) perdeuForca();
+}
+
+function venceuForca(){
+  const pontos = 20 + (FO.max - FO.erros) * 3;
+  ganharPontos(pontos, "forca");
+  bip("fim");
+  soltarConfete();
+  $$("#fo-teclado .tecla").forEach(t => t.disabled = true);
+  painelFim($("#fo-fim"), {
+    emoji: "🎯",
+    titulo: "Palavra descoberta!",
+    pontos,
+    texto: "Era " + FO.palavra + ". Você errou " + FO.erros + " letra(s) e terminou com energia de sobra.",
+    aoRepetir: iniciarForca,
+    rotuloRepetir: "↻ Outra palavra"
+  });
+}
+
+function perdeuForca(){
+  bip("erro");
+  $$("#fo-teclado .tecla").forEach(t => t.disabled = true);
+  painelFim($("#fo-fim"), {
+    emoji: "😮‍💨",
+    titulo: "Acabou a energia",
+    texto: "A palavra era " + FO.palavra + " — " + FO.dica.toLowerCase() + ".",
+    aoRepetir: iniciarForca,
+    rotuloRepetir: "↻ Tentar outra"
+  });
+}
+
+/* =====================================================================
+   ESTAÇÃO 06 — DIA A DIA OU DE VEZ EM QUANDO
+   ===================================================================== */
+
+const PR = { fila:[], i:0, acertos:0, erros:0, tempo:60, timer:null, rodando:false };
+
+function prepararPrato(){
+  clearInterval(PR.timer);
+  PR.rodando = false;
+  PR.acertos = 0; PR.erros = 0; PR.tempo = 60; PR.i = 0;
+  $("#pr-fim").innerHTML = "";
+  $("#pr-tempo").textContent = "60";
+  $("#pr-tempo").classList.remove("urgente");
+  $("#pr-emoji").textContent = "🍽️";
+  $("#pr-nome").textContent = "Pronto?";
+  $("#pr-fala").textContent = "Aperte “Começar” para o cronômetro correr.";
+  $("#pr-carta").className = "item-carta";
+  $("#pr-status").textContent = "Acertos: 0 · Erros: 0";
+  $("#pr-dia").disabled = true;
+  $("#pr-vez").disabled = true;
+  $("#pr-comecar").classList.remove("oculto");
+}
+
+function comecarPrato(){
+  PR.fila = embaralhar(ITENS_PRATO);
+  PR.i = 0; PR.acertos = 0; PR.erros = 0; PR.tempo = 60; PR.rodando = true;
+  $("#pr-fim").innerHTML = "";
+  $("#pr-comecar").classList.add("oculto");
+  $("#pr-dia").disabled = false;
+  $("#pr-vez").disabled = false;
+  mostrarItem();
+
+  clearInterval(PR.timer);
+  PR.timer = setInterval(() => {
+    PR.tempo--;
+    $("#pr-tempo").textContent = PR.tempo;
+    $("#pr-tempo").classList.toggle("urgente", PR.tempo <= 10);
+    if(PR.tempo <= 0) terminarPrato();
+  }, 1000);
+}
+
+function mostrarItem(){
+  if(PR.i >= PR.fila.length){          // acabou a rodada: reembaralha e segue
+    PR.fila = embaralhar(ITENS_PRATO);
+    PR.i = 0;
+  }
+  const item = PR.fila[PR.i];
+  $("#pr-carta").className = "item-carta";
+  $("#pr-emoji").textContent = item.e;
+  $("#pr-nome").textContent = item.n;
+  $("#pr-fala").textContent = "";
+}
+
+function classificar(escolheuDia){
+  if(!PR.rodando) return;
+  const item = PR.fila[PR.i];
+  const certo = item.dia === escolheuDia;
+  if(certo){ PR.acertos++; bip("certo"); } else { PR.erros++; bip("erro"); }
+  $("#pr-carta").className = "item-carta " + (certo ? "acerto" : "erro");
+  $("#pr-fala").textContent = (certo ? "" : (item.dia ? "É dia a dia! " : "É de vez em quando! ")) + item.f;
+  $("#pr-status").textContent = "Acertos: " + PR.acertos + " · Erros: " + PR.erros;
+  PR.i++;
+  setTimeout(() => { if(PR.rodando) mostrarItem(); }, 900);
+}
+
+function terminarPrato(){
+  clearInterval(PR.timer);
+  PR.rodando = false;
+  $("#pr-dia").disabled = true;
+  $("#pr-vez").disabled = true;
+  $("#pr-tempo").textContent = "0";
+  $("#pr-tempo").classList.remove("urgente");
+
+  const pontos = Math.max(0, PR.acertos * 5 - PR.erros * 2);
+  ganharPontos(pontos, "prato");
+  bip("fim");
+  if(PR.acertos >= 12) soltarConfete();
+  painelFim($("#pr-fim"), {
+    emoji: PR.acertos >= 12 ? "🍽️" : "⏱️",
+    titulo: "Tempo esgotado!",
+    pontos,
+    texto: PR.acertos + " acerto(s) e " + PR.erros + " erro(s) em 60 segundos. " +
+           "Lembre: nada é proibido — o que muda é a frequência.",
+    aoRepetir: comecarPrato,
+    rotuloRepetir: "↻ Jogar de novo"
+  });
+}
+
+function ligarPrato(){
+  $("#pr-comecar").addEventListener("click", comecarPrato);
+  $("#pr-dia").addEventListener("click", () => classificar(true));
+  $("#pr-vez").addEventListener("click", () => classificar(false));
+}
+
+/* =====================================================================
+   CONTROLES GERAIS
+   ===================================================================== */
+
+function aplicarTema(tema){
+  // Sem escolha própria, não mexe no atributo: quem hospeda a página pode
+  // já ter definido o tema, e o padrão é seguir o sistema do visitante.
+  if(tema) document.documentElement.setAttribute("data-theme", tema);
+  const marcado = document.documentElement.getAttribute("data-theme");
+  const escuro = marcado === "dark" ||
+    (!tema && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  $("#btn-tema").textContent = escuro ? "☀️" : "🌙";
+}
+
+function ligarGerais(){
+  $$("[data-voltar]").forEach(b => b.addEventListener("click", () => {
+    clearInterval(PR.timer);
+    PR.rodando = false;
+    mostrarTela("tela-menu");
+    trocarEndereco("menu");
+  }));
+
+  $("#btn-tema").addEventListener("click", () => {
+    const escuroAgora = document.documentElement.getAttribute("data-theme") === "dark" ||
+      (!document.documentElement.getAttribute("data-theme") &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches);
+    ESTADO.tema = escuroAgora ? "light" : "dark";
+    aplicarTema(ESTADO.tema);
+    salvarEstado();
+  });
+
+  $("#btn-som").addEventListener("click", () => {
+    ESTADO.som = !ESTADO.som;
+    $("#btn-som").textContent = ESTADO.som ? "🔊" : "🔇";
+    $("#btn-som").setAttribute("aria-pressed", String(ESTADO.som));
+    salvarEstado();
+    if(ESTADO.som) bip("certo");
+  });
+
+  $("#btn-zerar").addEventListener("click", () => {
+    ESTADO.pontos = 0;
+    ESTADO.concluidas = {};
+    salvarEstado();
+    atualizarPlacar();
+    avisar("Placar zerado — pronto para a próxima turma");
+  });
+}
+
+/* =====================================================================
+   INÍCIO
+   ===================================================================== */
+
+carregarEstado();
+aplicarTema(ESTADO.tema);
+$("#btn-som").textContent = ESTADO.som ? "🔊" : "🔇";
+$("#btn-som").setAttribute("aria-pressed", String(ESTADO.som));
+
+montarMenu();
+ligarGerais();
+ligarCaca();
+ligarCruzadas();
+ligarQuiz();
+ligarPrato();
+
+novoCaca();
+montarCruzadas();
+pintarCruzadas();
+aplicarEndereco();
+</script>
+</body>
+</html>
