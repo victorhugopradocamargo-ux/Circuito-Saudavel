@@ -527,6 +527,39 @@ main{max-width:1120px;margin:0 auto;padding:26px 18px 60px}
 .aviso.visivel{opacity:1;transform:translate(-50%,0)}
 .oculto{display:none !important}
 
+/* --------------------------- janela baixa ---------------------------
+   Vale para notebook de tela curta e, principalmente, para o quadro do
+   Google Sites: dentro de um iframe a "altura da janela" é a altura do
+   quadro. Encolhe topo e capa para sobrar espaço ao conteúdo. */
+@media (max-height:780px){
+  .topo-interno{padding:6px 18px}
+  .marca svg{width:26px;height:26px}
+  .marca-nome{font-size:22px}
+  .marca-sub{font-size:9px}
+  .placar-item{padding:2px 10px}
+  .placar-val{font-size:16px}
+  .icone-btn{width:32px;height:32px;font-size:14px}
+  main{padding:14px 18px 30px}
+  .hero{padding:16px 20px 15px;margin-bottom:16px;border-radius:16px}
+  .hero h1{font-size:clamp(32px,5.2vw,48px)}
+  .hero p{margin-top:9px;font-size:14.5px}
+  .eyebrow{margin-bottom:9px;padding:4px 10px}
+  .secao-rotulo{font-size:19px;margin-bottom:11px}
+  .estacoes{gap:10px;grid-template-columns:repeat(auto-fill,minmax(238px,1fr))}
+  .estacao{padding:13px 14px 12px;gap:6px}
+  .estacao h3{font-size:22px}
+  .estacao p{font-size:13px}
+  .estacao-icone{font-size:24px}
+  .nota-professor{margin-top:16px;padding:12px 14px;font-size:13px}
+  .jogo-topo{padding-bottom:10px;margin-bottom:14px}
+  .jogo-topo h2{font-size:27px}
+  .rodape{padding:14px 18px 24px}
+  /* tabuleiro e dicas passam a caber junto com o teclado, sem rolagem longa */
+  .cz-grade{max-width:min(94vw,600px,70vh)}
+  .cp-grade{max-width:min(94vw,580px,70vh)}
+  .dicas-lista{max-height:30vh;overflow-y:auto;overscroll-behavior:contain}
+}
+
 @media (max-width:620px){
   .topo-interno{padding:8px 12px;gap:8px}
   .marca-nome{font-size:22px}
